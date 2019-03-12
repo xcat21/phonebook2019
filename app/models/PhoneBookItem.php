@@ -1,0 +1,97 @@
+<?php
+
+
+
+class PhoneBookItem extends \Phalcon\Mvc\Model
+{
+
+    /**
+     *
+     * @var integer
+     */
+    public $id;
+
+    /**
+     *
+     * @var string
+     */
+    public $fname;
+
+    /**
+     *
+     * @var string
+     */
+    public $lname;
+
+    /**
+     *
+     * @var string
+     */
+    public $phone;
+
+    /**
+     *
+     * @var string
+     */
+    public $countryCode;
+
+    /**
+     *
+     * @var string
+     */
+    public $timeZone;
+
+    /**
+     *
+     * @var string
+     */
+    public $insertedOn;
+
+    /**
+     *
+     * @var string
+     */
+    public $updatedOn;
+
+    /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->setSchema("phonebook_db");
+        $this->setSource("phoneBookItem");
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'phoneBookItem';
+    }
+
+    /**
+     * Allows to query a set of records that match the specified conditions
+     *
+     * @param mixed $parameters
+     * @return PhoneBookItem[]|PhoneBookItem|\Phalcon\Mvc\Model\ResultSetInterface
+     */
+    public static function find($parameters = null)
+    {
+        return parent::find($parameters);
+    }
+
+    /**
+     * Allows to query the first record that match the specified conditions
+     *
+     * @param mixed $parameters
+     * @return PhoneBookItem|\Phalcon\Mvc\Model\ResultInterface
+     */
+    public static function findFirst($parameters = null)
+    {
+        return parent::findFirst($parameters);
+    }
+
+}
