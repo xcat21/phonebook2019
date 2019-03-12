@@ -1,1 +1,0 @@
-2019/03/12 05:08:34 [error] 1736#1736: *1 directory index of "/app/api/" is forbidden, client: 192.168.83.1, server: api.phonebook.loc, request: "GET / HTTP/1.1", host: "api.phonebook.loc"
