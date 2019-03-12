@@ -14,5 +14,4 @@ info "Provision-script user: `whoami`"
 
 export LANG=C
 
-cd /app
-phalcon migration run
+info "Install composer dependencies"
