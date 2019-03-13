@@ -22,6 +22,7 @@ try {
 
     // Initializing application
     $app = new \Phalcon\Mvc\Micro();
+
     // Setting DI container
     $app->setDI($di);
 
@@ -35,8 +36,13 @@ try {
             $return = $app->getReturnedValue();
 
             if (is_array($return)) {
-                // Transforming arrays to JSON
-                $app->response->setContent(json_encode($return));
+
+                if (!empty($return)) {  // Check if $result array is empty to response with 204
+                    // Transforming arrays to JSON
+                    $app->response->setContent(json_encode($return));
+                } else {
+                    $app->response->setStatusCode('204', 'No Content');
+                }
             } elseif (!strlen($return)) {
                 // Successful response without any content
                 $app->response->setStatusCode('204', 'No Content');

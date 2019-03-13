@@ -48,7 +48,7 @@ abstract class AbstractHttpException extends \RuntimeException
     protected $appError = [];
 
     /**
-     * @param string $appErrorMessage Exception messge
+     * @param string $appErrorMessage Exception message
      * @param integer $appErrorCode Exception code
      * @param \Exception $previous Chain of exceptions
      *

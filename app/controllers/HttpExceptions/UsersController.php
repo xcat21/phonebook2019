@@ -14,7 +14,7 @@ use App\Controllers\HttpExceptions\Http422Exception;
 use App\Controllers\HttpExceptions\Http500Exception;
 use App\Services\AbstractService;
 use App\Services\ServiceException;
-use App\Services\UsersService;
+use App\Services\RecordService;
 
 /**
  * Operations with Users: CRUD
@@ -64,7 +64,7 @@ class UsersController extends AbstractController
         } catch (ServiceException $e) {
             switch ($e->getCode()) {
                 case AbstractService::ERROR_ALREADY_EXISTS:
-                case UsersService::ERROR_UNABLE_CREATE_USER:
+                case RecordService::ERROR_UNABLE_CREATE_USER:
                     throw new Http422Exception($e->getMessage(), $e->getCode(), $e);
                 default:
                     throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);
@@ -147,8 +147,8 @@ class UsersController extends AbstractController
             $this->usersService->updateUser($data);
         } catch (ServiceException $e) {
             switch ($e->getCode()) {
-                case UsersService::ERROR_UNABLE_UPDATE_USER:
-                case UsersService::ERROR_USER_NOT_FOUND:
+                case RecordService::ERROR_UNABLE_UPDATE_USER:
+                case RecordService::ERROR_USER_NOT_FOUND:
                     throw new Http422Exception($e->getMessage(), $e->getCode(), $e);
                 default:
                     throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);
@@ -171,8 +171,8 @@ class UsersController extends AbstractController
             $this->usersService->deleteUser((int)$userId);
         } catch (ServiceException $e) {
             switch ($e->getCode()) {
-                case UsersService::ERROR_UNABLE_DELETE_USER:
-                case UsersService::ERROR_USER_NOT_FOUND:
+                case RecordService::ERROR_UNABLE_DELETE_USER:
+                case RecordService::ERROR_USER_NOT_FOUND:
                     throw new Http422Exception($e->getMessage(), $e->getCode(), $e);
                 default:
                     throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);

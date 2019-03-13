@@ -17,7 +17,7 @@ class PhonebookitemMigration_100 extends Migration
      */
     public function morph()
     {
-        $this->morphTable('phoneBookItem', [
+        $this->morphTable('Record', [
                 'columns' => [
                     new Column(
                         'id',
@@ -111,27 +111,27 @@ class PhonebookitemMigration_100 extends Migration
      */
     public function up()
     {
-        self::$connection->dropTable('phoneBookItem');
+        self::$connection->dropTable('Record');
 
         $this->morph();
 
         self::$connection->insert(
-            'phoneBookItem',
+            'Record',
             [1, 'Roman','Smirnov','+7 123 45 67', 'RU', 'Moscow/Europe', '2019-03-12 09:22','2019-03-12 11:43'],
             ['id', 'fname', 'lname', 'phone', 'countryCode', 'timeZone', 'insertedOn', 'updatedOn']);
 
         self::$connection->insert(
-            'phoneBookItem',
+            'Record',
             [2, 'Tom','Cruize','+70 333 45 99', 'EU', 'Mars/Cedonia', '2019-03-12 12:43:00','2019-03-12 13:40:00'],
             ['id', 'fname', 'lname', 'phone', 'countryCode', 'timeZone', 'insertedOn', 'updatedOn']);
 
         self::$connection->insert(
-            'phoneBookItem',
+            'Record',
             [3, 'Anna','Brown','+2 144 265', 'AF', 'Venera/Base', '2019-03-15 12:43:00',' 2019-03-15 18:40:00'],
             ['id','fname', 'lname', 'phone', 'countryCode', 'timeZone', 'insertedOn', 'updatedOn']);
 
         self::$connection->insert(
-            'phoneBookItem',
+            'Record',
             [4, 'Boris','Johnson','+44 333 265', 'GB', 'Longway/Passing', ' 2019-03-11 10:43:00','2019-03-15 15:20:00'],
             ['id','fname', 'lname', 'phone', 'countryCode', 'timeZone', 'insertedOn', 'updatedOn']);
     }
@@ -144,7 +144,7 @@ class PhonebookitemMigration_100 extends Migration
      */
     public function down()
     {
-        self::$connection->dropTable('phoneBookItem');
+        self::$connection->dropTable('Record');
     }
 
 }

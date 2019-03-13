@@ -11,7 +11,7 @@ namespace App\Services;
 /**
  * Class AbstractService
  *
- * @property \Phalcon\Db\Adapter\Pdo\Postgresql $db
+ * @property \Phalcon\Db\Adapter\Pdo\Mysql   $db
  * @property \Phalcon\Cache\Backend\Redis       $cache
  * @property \Phalcon\Config                    $config
  */

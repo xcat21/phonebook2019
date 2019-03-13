@@ -13,10 +13,10 @@ namespace App\Controllers;
  *
  * @property \Phalcon\Http\Request              $request
  * @property \Phalcon\Http\Response             $htmlResponse
- * @property \Phalcon\Db\Adapter\Pdo\Postgresql $db
+ * @property \Phalcon\Db\Adapter\Pdo\Mysql   $db
  * @property \Phalcon\Config                    $config
- * @property \App\Services\UsersService         $usersService
- * @property \App\Models\Users                  $user
+ * @property \App\Services\RecordService        $recordService
+ * @property \App\Models\Record                 $record
  */
 abstract class AbstractController extends \Phalcon\DI\Injectable
 {

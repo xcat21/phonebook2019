@@ -26,7 +26,7 @@ return new \Phalcon\Config(
 
         'logger' => [
             'format' => '[%date%][%type%] %message%', // record format
-            'fileName' => __DIR__.'/../logs/[%date%].log', // file name
+            'fileName' => APP_PATH.'/logs/[%date%].log', // file name
             'level' => \Phalcon\Logger::CUSTOM, // minimum level to log
         ],
         /*

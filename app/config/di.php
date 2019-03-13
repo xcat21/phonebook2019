@@ -1,6 +1,6 @@
 <?php
 
-use Phalcon\Db\Adapter\Pdo\PdoMysql;
+use Phalcon\Db\Adapter\Pdo\Mysql;
 
 // Initializing a DI Container
 $di = new \Phalcon\DI\FactoryDefault();
@@ -25,7 +25,7 @@ $di->setShared('config', $config);
 $di->set(
     "db",
     function () use ($config) {
-        return new PdoMysql(
+        return new Mysql(
             [
                 "host"     => $config->database->host,
                 "username" => $config->database->username,
@@ -91,6 +91,6 @@ $di->set(
 );
 
 /** Service to perform operations with the Users */
-$di->setShared('usersService', '\App\Services\UsersService');
+$di->setShared('recordService', '\App\Services\RecordService');
 
 return $di;
