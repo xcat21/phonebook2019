@@ -38,6 +38,7 @@ info "Create bash-aliases for vagrant user"
 echo 'alias app="cd /app"' | tee /home/vagrant/.bash_aliases
 echo 'alias phalcon="/app/vendor/bin/phalcon.php"' | tee /home/vagrant/.bash_aliases
 echo 'alias codecept="/app/vendor/bin/codecept"' | tee /home/vagrant/.bash_aliases
+echo 'alias pcf="/app/vendor/bin/php-cs-fixer"' | tee /home/vagrant/.bash_aliases
 
 info "Enabling colorized prompt for guest console"
 sed -i "s/#force_color_prompt=yes/force_color_prompt=yes/" /home/vagrant/.bashrc

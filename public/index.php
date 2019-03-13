@@ -1,24 +1,24 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: hovercat
  * Date: 13.03.2019
- * Time: 12:03
+ * Time: 12:03.
  */
-
-
 use App\Controllers\AbstractHttpException;
 
 try {
     // Loading Configs
-    $config = require(__DIR__ . '/../app/config/config.php');
+    $config = require __DIR__.'/../app/config/config.php';
 
     // Autoloading classes
-    require __DIR__ . '/../app/config/loader.php';
+    require __DIR__.'/../app/config/loader.php';
 
     // Initializing DI container
     /** @var \Phalcon\DI\FactoryDefault $di */
-    $di = require __DIR__ . '/../app/config/di.php';
+    $di = require __DIR__.'/../app/config/di.php';
 
     // Initializing application
     $app = new \Phalcon\Mvc\Micro();
@@ -26,7 +26,7 @@ try {
     $app->setDI($di);
 
     // Setting up routing
-    require __DIR__ . '/../app/config/routes.php';
+    require __DIR__.'/../app/config/routes.php';
 
     // Making the correct answer after executing
     $app->after(
@@ -60,15 +60,15 @@ try {
 } catch (\Phalcon\Http\Request\Exception $e) {
     $app->response->setStatusCode(400, 'Bad request')
         ->setJsonContent([
-            AbstractHttpException::KEY_CODE    => 400,
-            AbstractHttpException::KEY_MESSAGE => 'Bad request'
+            AbstractHttpException::KEY_CODE => 400,
+            AbstractHttpException::KEY_MESSAGE => 'Bad request',
         ])
         ->send();
 } catch (\Exception $e) {
     // Standard error format
     $result = [
-        AbstractHttpException::KEY_CODE    => 500,
-        AbstractHttpException::KEY_MESSAGE => 'Some error occurred on the server.'
+        AbstractHttpException::KEY_CODE => 500,
+        AbstractHttpException::KEY_MESSAGE => 'Some error occurred on the server.',
     ];
 
     // Sending error response
