@@ -14,4 +14,3 @@ info "Provision-script user: `whoami`"
 
 export LANG=C
 
-info "Install composer dependencies"
