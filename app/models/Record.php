@@ -1,8 +1,8 @@
 <?php
 
+namespace App\Models;
 
-
-class PhoneBookItem extends \Phalcon\Mvc\Model
+class Record extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -69,7 +69,7 @@ class PhoneBookItem extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'phoneBookItem';
+        return 'Record';
     }
 // ----
     /**
@@ -104,7 +104,7 @@ class PhoneBookItem extends \Phalcon\Mvc\Model
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return PhoneBookItem[]|PhoneBookItem|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return Record[]|Record|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null)
     {
@@ -115,7 +115,7 @@ class PhoneBookItem extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return PhoneBookItem|\Phalcon\Mvc\Model\ResultInterface
+     * @return Record|\Phalcon\Mvc\Model\ResultInterface
      */
     public static function findFirst($parameters = null)
     {

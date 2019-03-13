@@ -32,3 +32,6 @@ Vagrantfile
 
 # Phalcon
 /.phalcon
+
+#PSR autocheck
+.psr
