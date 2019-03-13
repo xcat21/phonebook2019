@@ -26,7 +26,7 @@ try {
     $app->setDI($di);
 
     // Setting up routing
-    require __DIR__ . '/../app/config/route.php';
+    require __DIR__ . '/../app/config/routes.php';
 
     // Making the correct answer after executing
     $app->after(

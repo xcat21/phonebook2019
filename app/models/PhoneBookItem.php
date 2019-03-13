@@ -71,6 +71,34 @@ class PhoneBookItem extends \Phalcon\Mvc\Model
     {
         return 'phoneBookItem';
     }
+// ----
+    /**
+     * Method to set the value of field first_name
+     *
+     * @param string $first_name
+     * @return $this
+     */
+    public function setFirstName($first_name)
+    {
+        $this->first_name = $first_name;
+
+        return $this;
+    }
+
+    /**
+     * Returns the value of field first_name
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->first_name;
+    }
+
+
+// ----
+
+
 
     /**
      * Allows to query a set of records that match the specified conditions
