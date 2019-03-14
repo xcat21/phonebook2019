@@ -65,4 +65,90 @@ class RecordService extends AbstractService
             throw new ServiceException($e->getMessage(), $e->getCode(), $e);
         }
     }
+
+    /**
+     * Returns records list
+     *
+     * @param string $id
+     * @return array
+     */
+    public function getItemList($limit, $offset)
+    {
+        try {
+
+        //    $cachedRecords = $this->cache->get(self::CACHE_KEY);
+
+        //    if (is_null($cachedRecords)) {
+
+                $records = Record::find(
+                    [
+                        'conditions' => '',
+                        'bind'       => [],
+                        'columns'    => "*",
+                        'limit'      => $limit,
+                        'offset'     => $offset
+                    ]
+                );
+
+                if (!$records) {
+                //    $this->cache->save(self::CACHE_KEY, []);
+                    return [];
+                }
+
+                $recordsResult = $records->toArray();
+
+                // $cachedUsers = array_combine(array_column( $usersResult, 'id'), $usersResult );
+                // $this->cache->save(self::CACHE_KEY, $cachedUsers);
+        //    }
+
+            return $recordsResult;
+
+        } catch (\PDOException $e) {
+            throw new ServiceException($e->getMessage(), $e->getCode(), $e);
+        }
+
+    }
+
+    /**
+     * Returns records list by search
+     *
+     * @param string $name
+     * @return array
+     */
+    public function getItemListSearch($name)
+    {
+
+        try {
+
+            //    $cachedRecords = $this->cache->get(self::CACHE_KEY);
+
+            //    if (is_null($cachedRecords)) {
+
+            $query   = Record::query();
+
+            $query->where("fname LIKE :name: OR lname LIKE :name:");
+            $query->bind([
+                               'name' => '%'.$name.'%'
+                           ]);
+
+            $records = $query->execute();
+
+            if (!$records) {
+                //    $this->cache->save(self::CACHE_KEY, []);
+                return [];
+            }
+
+            $recordsResult = $records->toArray();
+
+            // $cachedUsers = array_combine(array_column( $usersResult, 'id'), $usersResult );
+            // $this->cache->save(self::CACHE_KEY, $cachedUsers);
+            //    }
+
+            return $recordsResult;
+
+        } catch (\PDOException $e) {
+            throw new ServiceException($e->getMessage(), $e->getCode(), $e);
+        }
+
+    }
 }

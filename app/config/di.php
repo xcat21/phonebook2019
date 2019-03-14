@@ -18,6 +18,17 @@ $di->setShared(
     }
 );
 
+/**
+ * Overriding Request-object to set the Content-type header globally
+ */
+$di->setShared(
+    'request',
+    function () {
+        $request = new \Phalcon\Http\Request();
+        return $request;
+    }
+);
+
 /** Common config */
 $di->setShared('config', $config);
 
@@ -90,7 +101,7 @@ $di->set(
     true
 );
 
-/** Service to perform operations with the Users */
+/** Service to perform operations with the Records */
 $di->setShared('recordService', '\App\Services\RecordService');
 
 return $di;

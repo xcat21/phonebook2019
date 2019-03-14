@@ -10,7 +10,10 @@ $recordCollection = new \Phalcon\Mvc\Micro\Collection();
 $recordCollection->setHandler('\App\Controllers\RecordController', true);
 $recordCollection->setPrefix('/v1/phonebook');
 $recordCollection->get('/{id:[1-9][0-9]*}', 'getItemByIdAction');
-$recordCollection->get('/docs', 'getDoc');
+$recordCollection->get('/', 'getItemListAction');
+$recordCollection->get('/search', 'getItemListSearchAction');
+
+// $recordCollection->get('/docs', 'getDoc');
 
 // $usersCollection->post('/add', 'addAction');
 // $usersCollection->get('/list', 'getUserListAction');

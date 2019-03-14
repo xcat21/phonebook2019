@@ -10,7 +10,7 @@ class CreateItemCest
 
     public function getErrorForGET404 (ApiTester $I)
     {
-        $I->wantTo('get an 404 error when sending GET with not valid request to my Phonebook via API');
+        $I->wantTo('get an 404 code when sending GET with not valid request to my Phonebook via API');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/kj54');
@@ -24,7 +24,7 @@ class CreateItemCest
 
     public function getErrorForPOST404 (ApiTester $I)
     {
-        $I->wantTo('get an 404 error when sending POST with not valid request to my Phonebook via API');
+        $I->wantTo('get an 404 code when sending POST with not valid request to my Phonebook via API');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPOST('v1/phonebook/hjsdhgbe');
@@ -66,7 +66,7 @@ class CreateItemCest
 
     public function getRecordById204 (ApiTester $I)
     {
-        $I->wantTo('get an 204 error when getting nonexistent item from my Phonebook via API');
+        $I->wantTo('get an 204 code when asking for non-existed item from my Phonebook via API');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/34');
@@ -74,6 +74,76 @@ class CreateItemCest
         $I->seeResponseEquals(null);
     }
 
+    public function getRecordsListAll (ApiTester $I)
+    {
+        $I->wantTo('get list of all records from my Phonebook via API');
+        //  $I->amHttpAuthenticated('service_user', '123456');
+        //  $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendGET('v1/phonebook/');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseContains('[{"id":"1","fname":"Roman","lname":"Smirnov","phone":"+7 123 45 67",'.
+            '"countryCode":"RU","timeZone":"Moscow\/Europe","insertedOn":"2019-03-12 09:22:00","updatedOn":"'.
+            '2019-03-12 11:43:00"},{"id":"2","fname":"Tom","lname":"Cruize","phone":"+70 333 45 99",'.
+            '"countryCode":"EU","timeZone":"Mars\/Cedonia","insertedOn":"2019-03-12 12:43:00","updatedOn"'.
+            ':"2019-03-12 13:40:00"},{"id":"3","fname":"Anna","lname":"Brown","phone":"+2 144 265","countryCode"'.
+            ':"AF","timeZone":"Venera\/Base","insertedOn":"2019-03-15 12:43:00","updatedOn":"2019-03-15 18:40:00"}'.
+            ',{"id":"4","fname":"Boris","lname":"Johnson","phone":"+44 333 265","countryCode":"GB","timeZone":"'.
+            'Longway\/Passing","insertedOn":"2019-03-11 10:43:00","updatedOn":"2019-03-15 15:20:00"}]');
+    }
 
+    public function getRecordsListAllLimit (ApiTester $I)
+    {
+        $I->wantTo('get list of all records from my Phonebook via API with limit');
+        //  $I->amHttpAuthenticated('service_user', '123456');
+        //  $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendGET('v1/phonebook?limit=2');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseContains('[{"id":"1","fname":"Roman","lname":"Smirnov","phone":"+7 123 45 67",'.
+            '"countryCode":"RU","timeZone":"Moscow\/Europe","insertedOn":"2019-03-12 09:22:00","updatedOn":'.
+            '"2019-03-12 11:43:00"},{"id":"2","fname":"Tom","lname":"Cruize","phone":"+70 333 45 99",'.
+            '"countryCode":"EU","timeZone":"Mars\/Cedonia","insertedOn":"2019-03-12 12:43:00","updatedOn":"'.
+            '2019-03-12 13:40:00"}]');
+    }
+
+    public function getRecordsListAllLimitOffset (ApiTester $I)
+    {
+        $I->wantTo('get list of all records from my Phonebook via API with limit and offset');
+        //  $I->amHttpAuthenticated('service_user', '123456');
+        //  $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendGET('v1/phonebook?limit=2&offset=2');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseContains('[{"id":"2","fname":"Tom","lname":"Cruize","phone":"+70 333 45 99","'.
+            'countryCode":"EU","timeZone":"Mars\/Cedonia","insertedOn":"2019-03-12 12:43:00","updatedOn":"'.
+            '2019-03-12 13:40:00"},{"id":"3","fname":"Anna","lname":"Brown","phone":"+2 144 265","countryCode'.
+            '":"AF","timeZone":"Venera\/Base","insertedOn":"2019-03-15 12:43:00","updatedOn":"2019-03-15 18:40'.
+            ':00"}]');
+    }
+
+    public function getRecordsListAllLimitOffset204 (ApiTester $I)
+    {
+        $I->wantTo('get an 204 code when asking for non-existed offset from my Phonebook via API');
+        //  $I->amHttpAuthenticated('service_user', '123456');
+        //  $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendGET('v1/phonebook?limit=2&offset=200');
+        $I->seeResponseCodeIs(204);
+        $I->seeResponseEquals(null);
+    }
+
+    public function getRecordsListAllSafeLimitOffset (ApiTester $I)
+    {
+        $I->wantTo('get list of all records with default values of limit and offset when them are not valid');
+        //  $I->amHttpAuthenticated('service_user', '123456');
+        //  $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendGET('v1/phonebook?limit=kjdhfjk&offset=kejrh');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseContains('[{"id":"1","fname":"Roman","lname":"Smirnov","phone":"+7 123 45 67",'.
+            '"countryCode":"RU","timeZone":"Moscow\/Europe","insertedOn":"2019-03-12 09:22:00","updatedOn":"'.
+            '2019-03-12 11:43:00"},{"id":"2","fname":"Tom","lname":"Cruize","phone":"+70 333 45 99",'.
+            '"countryCode":"EU","timeZone":"Mars\/Cedonia","insertedOn":"2019-03-12 12:43:00","updatedOn"'.
+            ':"2019-03-12 13:40:00"},{"id":"3","fname":"Anna","lname":"Brown","phone":"+2 144 265","countryCode"'.
+            ':"AF","timeZone":"Venera\/Base","insertedOn":"2019-03-15 12:43:00","updatedOn":"2019-03-15 18:40:00"}'.
+            ',{"id":"4","fname":"Boris","lname":"Johnson","phone":"+44 333 265","countryCode":"GB","timeZone":"'.
+            'Longway\/Passing","insertedOn":"2019-03-11 10:43:00","updatedOn":"2019-03-15 15:20:00"}]');
+    }
 
 }
