@@ -16,7 +16,7 @@ use App\Services\ServiceException;
 use App\Services\RecordService;
 
 /**
- * Operations with Users: CRUD
+ * Operations with Records: CRUD
  */
 class RecordController extends AbstractController
 {
@@ -112,7 +112,7 @@ class RecordController extends AbstractController
         } catch (ServiceException $e) {
             switch ($e->getCode()) {
                 case AbstractService::ERROR_ALREADY_EXISTS:
-                case RecordService::ERROR_UNABLE_CREATE_USER:
+                case RecordService::ERROR_UNABLE_CREATE_RECORD:
                     throw new Http422Exception($e->getMessage(), $e->getCode(), $e);
                 default:
                     throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);
@@ -122,5 +122,66 @@ class RecordController extends AbstractController
         return ["result" => "ok"];
 
     }
+
+    /**
+     * Returns records list
+     *
+     * @param string $id
+     * @return array
+     */
+    public function updateRecordAction($id)
+    {
+        // Init
+        $errors = [];
+
+        $data = (array) $this->request->getJsonRawBody();
+        $data["id"] = (int) $id;
+
+        // Add validation here
+
+        try {
+            $result = $this->recordService->updateRecord($data);
+        } catch (ServiceException $e) {
+            switch ($e->getCode()) {
+                case AbstractService::ERROR_ALREADY_EXISTS:
+                case RecordService::ERROR_UNABLE_CREATE_RECORD:
+                    throw new Http422Exception($e->getMessage(), $e->getCode(), $e);
+                default:
+                    throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);
+            }
+        }
+
+        return $result;
+
+    }
+
+    /**
+     * Returns records list
+     *
+     * @param string $id
+     * @return array
+     */
+    public function deleteRecordAction($id)
+    {
+        if (!ctype_digit($id) || ($id < 0)) {
+            $errors['id'] = 'Id must be a positive integer';
+        }
+
+        try {
+            $result = $this->recordService->deleteRecord((int)$id);
+        } catch (ServiceException $e) {
+            switch ($e->getCode()) {
+                case recordService::ERROR_UNABLE_DELETE_RECORD:
+                case recordService::ERROR_RECORD_NOT_FOUND:
+                    throw new Http422Exception($e->getMessage(), $e->getCode(), $e);
+                default:
+                    throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);
+            }
+        }
+
+        return $result;
+
+    }
+
 
 }

@@ -182,10 +182,103 @@ class RecordService extends AbstractService
               throw new ServiceException('Unable to create record', self::ERROR_UNABLE_CREATE_RECORD);
           }
 
+          return ["result" => "ok"];
 
         } catch (\PDOException $e) {
             throw new ServiceException($e->getMessage(), $e->getCode(), $e);
         }
 
     }
+
+    /**
+     * Returns records list by search
+     *
+     * @param string $data
+     * @return array
+     */
+    public function updateRecord($data)
+    {
+
+        try {
+
+            $record = Record::findFirst(
+                [
+                    'conditions' => 'id = :id:',
+                    'bind'       => [
+                        'id' => $data['id']
+                    ]
+                ]
+            );
+
+            $data['firstName'] = (is_null($data['firstName'])) ? $record->getFirstName() : $data['firstName'];
+            $data['lastName'] = (is_null($data['lastName'])) ? $record->getLastName() : $data['lastName'];
+            $data['phoneNumber'] = (is_null($data['phoneNumber'])) ? $record->getPhone() : $data['phoneNumber'];
+            $data['countryCode'] = (is_null($data['countryCode'])) ? $record->getCountryCode() : $data['countryCode'];
+            $data['timeZone'] = (is_null($data['timeZone'])) ? $record->getTimeZone() : $data['timeZone'];
+
+            $result = $record
+                ->setFirstName($data['firstName'])
+                ->setLastName($data['lastName'])
+                ->setPhone($data['phoneNumber'])
+                ->setCountryCode($data['countryCode'])
+                ->setTimeZone($data['timeZone'])
+                ->setUpdatedOn()
+                ->update();
+
+            if (!$result) {
+                throw new ServiceException('Unable to update record', self::ERROR_UNABLE_UPDATE_RECORD);
+            }
+
+            return ["result" => "ok"];
+
+
+        } catch (\PDOException $e) {
+            throw new ServiceException($e->getMessage(), $e->getCode(), $e);
+        }
+
+    }
+
+    /**
+     * Returns records list by search
+     *
+     * @param string $id
+     * @return array
+     */
+    public function deleteRecord($id)
+    {
+        try {
+            $record = Record::findFirst(
+                [
+                    'conditions' => 'id = :id:',
+                    'bind' => [
+                        'id' => $id
+                    ]
+                ]
+            );
+
+            if (!$record) {
+                throw new ServiceException("Record not found", self::ERROR_RECORD_NOT_FOUND);
+            }
+
+            $result = (array) $record->delete();
+
+            if (!$result) {
+                throw new ServiceException('Unable to delete record', self::ERROR_UNABLE_DELETE_RECORD);
+            }
+
+            // Deleting from cache if exists
+            // $cachedUsers = $this->cache->get(self::CACHE_KEY);
+            // if (!is_null($cachedUsers) && isset($cachedUsers[$userId])) {
+            //    unset($cachedUsers[$userId]);
+            //    $this->cache->save(self::CACHE_KEY, $cachedUsers);
+            // }
+
+            return $result;
+        } catch (\PDOException $e) {
+            throw new ServiceException($e->getMessage(), $e->getCode(), $e);
+        }
+
+
+    }
+
 }

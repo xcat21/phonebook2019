@@ -3,6 +3,7 @@
         "codeception/codeception": "*",
         "phalcon/devtools": "*",
         "friendsofphp/php-cs-fixer": "^2.14",
-        "igsem/phalcon-swagger": "*"
+        "igsem/phalcon-swagger": "*",
+        "ext-gettext": "*"
     }
 }
