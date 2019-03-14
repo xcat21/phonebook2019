@@ -127,7 +127,7 @@ class RecordMigration_100 extends Migration
 
         self::$connection->insert(
             'Record',
-            [3, 'Anna','Brown','+2 144 265', 'AF', 'Venera/Base', '2019-03-15 12:43:00',' 2019-03-15 18:40:00'],
+            [3, 'An na','Brown','+2 144 265', 'AF', 'Venera/Base', '2019-03-15 12:43:00',' 2019-03-15 18:40:00'],
             ['id','fname', 'lname', 'phone', 'countryCode', 'timeZone', 'insertedOn', 'updatedOn']);
 
         self::$connection->insert(
