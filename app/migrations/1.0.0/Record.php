@@ -8,7 +8,7 @@ use Phalcon\Mvc\Model\Migration;
 /**
  * Class PhonebookitemMigration_100
  */
-class PhonebookitemMigration_100 extends Migration
+class RecordMigration_100 extends Migration
 {
     /**
      * Define the table structure

@@ -41,5 +41,7 @@ echo 'alias codecept="/app/vendor/bin/codecept"' | tee -a /home/vagrant/.bash_al
 echo 'alias pcf="/app/vendor/bin/php-cs-fixer"' | tee -a /home/vagrant/.bash_aliases
 
 info "Enabling colorized prompt for guest console"
+sed -i "s/alias ls='ls --color=auto'/alias ls='ls --color=none'/" /home/vagrant/.bashrc
 sed -i "s/#force_color_prompt=yes/force_color_prompt=yes/" /home/vagrant/.bashrc
+source ~/.bashrc
 

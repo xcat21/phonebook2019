@@ -16,6 +16,10 @@ class CreateItemCest
         $I->sendGET('v1/phonebook/kj54');
         $I->seeResponseCodeIs(404);
         $I->seeResponseContains('{"error":1,"error_description":"URI not found or error in request."}');
+        $I->seeResponseMatchesJsonType([
+            'error' => 'integer',
+            'error_description' => 'string'
+        ]);
     }
 
     public function getErrorForPOST404 (ApiTester $I)
@@ -26,6 +30,10 @@ class CreateItemCest
         $I->sendPOST('v1/phonebook/hjsdhgbe');
         $I->seeResponseCodeIs(404);
         $I->seeResponseContains('{"error":1,"error_description":"URI not found or error in request."}');
+        $I->seeResponseMatchesJsonType([
+            'error' => 'integer',
+            'error_description' => 'string'
+        ]);
     }
 
     public function getRecordByIdOk(ApiTester $I)
@@ -45,6 +53,15 @@ class CreateItemCest
                                     '"insertedOn":"2019-03-12 12:43:00",'.
                                     '"updatedOn":"2019-03-12 13:40:00"}'
                                );
+        $I->seeResponseMatchesJsonType([
+            'id' => 'string',
+            'fname' => 'string',
+            'phone' => 'string',
+            'countryCode' => 'string',
+            'timeZone' => 'string',
+            'insertedOn' => 'string',
+            'updatedOn' => 'string'
+        ]);
     }
 
     public function getRecordById204 (ApiTester $I)

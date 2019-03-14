@@ -6,16 +6,17 @@
  * Time: 12:05
  */
 
-$usersCollection = new \Phalcon\Mvc\Micro\Collection();
-$usersCollection->setHandler('\App\Controllers\RecordController', true);
-$usersCollection->setPrefix('/v1/phonebook');
-$usersCollection->get('/{id:[1-9][0-9]*}', 'getItemByIdAction');
+$recordCollection = new \Phalcon\Mvc\Micro\Collection();
+$recordCollection->setHandler('\App\Controllers\RecordController', true);
+$recordCollection->setPrefix('/v1/phonebook');
+$recordCollection->get('/{id:[1-9][0-9]*}', 'getItemByIdAction');
+$recordCollection->get('/docs', 'getDoc');
 
 // $usersCollection->post('/add', 'addAction');
 // $usersCollection->get('/list', 'getUserListAction');
 // $usersCollection->put('/{userId:[1-9][0-9]*}', 'updateUserAction');
 // $usersCollection->delete('/{userId:[1-9][0-9]*}', 'deleteUserAction');
-$app->mount($usersCollection);
+$app->mount($recordCollection);
 
 // not found URLs
 $app->notFound(
