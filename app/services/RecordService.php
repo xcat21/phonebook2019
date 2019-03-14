@@ -118,6 +118,10 @@ class RecordService extends AbstractService
     public function getItemListSearch($name)
     {
 
+        if (empty($name)) {
+            return [];
+        }
+
         try {
 
             //    $cachedRecords = $this->cache->get(self::CACHE_KEY);
@@ -126,7 +130,7 @@ class RecordService extends AbstractService
 
             $query   = Record::query();
 
-            $query->where("fname LIKE :name: OR lname LIKE :name:");
+            $query->where("fName LIKE :name: OR lName LIKE :name:");
             $query->bind([
                                'name' => '%'.$name.'%'
                            ]);

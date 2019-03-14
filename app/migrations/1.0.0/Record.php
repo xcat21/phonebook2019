@@ -31,7 +31,7 @@ class RecordMigration_100 extends Migration
                         ]
                     ),
                     new Column(
-                        'fname',
+                        'fName',
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
@@ -40,7 +40,7 @@ class RecordMigration_100 extends Migration
                         ]
                     ),
                     new Column(
-                        'lname',
+                        'lName',
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'size' => 200,
@@ -117,23 +117,28 @@ class RecordMigration_100 extends Migration
 
         self::$connection->insert(
             'Record',
-            [1, 'Roman','Smirnov','+7 123 45 67', 'RU', 'Moscow/Europe', '2019-03-12 09:22','2019-03-12 11:43'],
-            ['id', 'fname', 'lname', 'phone', 'countryCode', 'timeZone', 'insertedOn', 'updatedOn']);
+            [1, 'Luke','Skywalker','+11 123 445674312', 'AR', 'Pacific/Saipan', '2019-03-12 09:22','2019-03-12 11:43'],
+            ['id', 'fName', 'lName', 'phone', 'countryCode', 'timeZone', 'insertedOn', 'updatedOn']);
 
         self::$connection->insert(
             'Record',
-            [2, 'Tom','Cruize','+70 333 45 99', 'EU', 'Mars/Cedonia', '2019-03-12 12:43:00','2019-03-12 13:40:00'],
-            ['id', 'fname', 'lname', 'phone', 'countryCode', 'timeZone', 'insertedOn', 'updatedOn']);
+            [2, 'Chewbacca','','+20 333 459935766', 'GF', 'Europe/Athens', '2019-03-12 12:43:00','2019-03-12 13:40:00'],
+            ['id', 'fName', 'lName', 'phone', 'countryCode', 'timeZone', 'insertedOn', 'updatedOn']);
 
         self::$connection->insert(
             'Record',
-            [3, 'An na','Brown','+2 144 265', 'AF', 'Venera/Base', '2019-03-15 12:43:00',' 2019-03-15 18:40:00'],
-            ['id','fname', 'lname', 'phone', 'countryCode', 'timeZone', 'insertedOn', 'updatedOn']);
+            [3, 'Han','Solo','+02 144 265555890', 'JM', 'Europe/Bucharest', '2019-03-15 12:43:00',' 2019-03-15 18:40:00'],
+            ['id','fName', 'lName', 'phone', 'countryCode', 'timeZone', 'insertedOn', 'updatedOn']);
 
         self::$connection->insert(
             'Record',
-            [4, 'Boris','Johnson','+44 333 265', 'GB', 'Longway/Passing', ' 2019-03-11 10:43:00','2019-03-15 15:20:00'],
-            ['id','fname', 'lname', 'phone', 'countryCode', 'timeZone', 'insertedOn', 'updatedOn']);
+            [4, 'Moff Kohl','Seerdon','+44 333 265786344', 'SC', 'America/Denver', ' 2019-03-11 10:43:00','2019-03-15 15:20:00'],
+            ['id','fName', 'lName', 'phone', 'countryCode', 'timeZone', 'insertedOn', 'updatedOn']);
+
+        self::$connection->insert(
+            'Record',
+            [5, 'Darth','Vader','+99 876 265111657', 'VU', 'Antarctica/DumontDUrville', ' 2019-03-11 10:43:00','2019-03-15 15:20:00'],
+            ['id','fName', 'lName', 'phone', 'countryCode', 'timeZone', 'insertedOn', 'updatedOn']);
     }
 
 

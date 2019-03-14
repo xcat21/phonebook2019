@@ -74,6 +74,15 @@ class RecordController extends AbstractController
         $name =  $this->request->getQuery('name', 'string', '');
 
         // Add name validation
+    /*    if (empty($name)) { // Add regexp
+            $errors['search_string'] = 'Search string should be passed to API';
+        }
+
+        if ($errors) {
+            $exception = new Http400Exception(_('Input parameters validation error'), self::ERROR_INVALID_REQUEST);
+            throw $exception->addErrorDetails($errors);
+        }
+    */
 
         try {
             $records = $this->recordService->getItemListSearch($name);

@@ -15,13 +15,13 @@ class Record extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $fname;
+    public $fName;
 
     /**
      *
      * @var string
      */
-    public $lname;
+    public $lName;
 
     /**
      *
