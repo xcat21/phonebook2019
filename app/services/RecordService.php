@@ -18,19 +18,19 @@ use App\Models\Record;
 class RecordService extends AbstractService
 {
     /** Unable to create record */
-    const ERROR_UNABLE_CREATE_USER = 11001;
+    const ERROR_UNABLE_CREATE_RECORD = 11001;
 
     /** Record not found */
-    const ERROR_USER_NOT_FOUND = 11002;
+    const ERROR_RECORD_NOT_FOUND = 11002;
 
     /** No such record */
-    const ERROR_INCORRECT_USER = 11003;
+    const ERROR_INCORRECT_RECORD = 11003;
 
     /** Unable to update record */
-    const ERROR_UNABLE_UPDATE_USER = 11004;
+    const ERROR_UNABLE_UPDATE_RECORD = 11004;
 
     /** Unable to delete record */
-    const ERROR_UNABLE_DELETE_USER = 1105;
+    const ERROR_UNABLE_DELETE_RECORD = 1105;
 
     /** Key to store records in cache */
     const CACHE_KEY = 'all_records';
@@ -149,6 +149,39 @@ class RecordService extends AbstractService
             //    }
 
             return $recordsResult;
+
+        } catch (\PDOException $e) {
+            throw new ServiceException($e->getMessage(), $e->getCode(), $e);
+        }
+
+    }
+
+    /**
+     * Returns records list by search
+     *
+     * @param string $name
+     * @return array
+     */
+    public function createRecord($data)
+    {
+
+      try {
+          $record = new Record();
+
+          $result = $record
+              ->setFirstName($data['firstName'])
+              ->setLastName($data['lastName'])
+              ->setPhone($data['phoneNumber'])
+              ->setCountryCode($data['countryCode'])
+              ->setTimeZone($data['timeZone'])
+              ->setInsertedOn()
+              ->setUpdatedOn()
+              ->create();
+
+          if (!$result) {
+              throw new ServiceException('Unable to create record', self::ERROR_UNABLE_CREATE_RECORD);
+          }
+
 
         } catch (\PDOException $e) {
             throw new ServiceException($e->getMessage(), $e->getCode(), $e);

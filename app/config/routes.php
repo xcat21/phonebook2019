@@ -12,6 +12,8 @@ $recordCollection->setPrefix('/v1/phonebook');
 $recordCollection->get('/{id:[1-9][0-9]*}', 'getItemByIdAction');
 $recordCollection->get('/', 'getItemListAction');
 $recordCollection->get('/search', 'getItemListSearchAction');
+$recordCollection->post('/add', 'addItemAction');
+
 
 // $recordCollection->get('/docs', 'getDoc');
 

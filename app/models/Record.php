@@ -75,24 +75,155 @@ class Record extends \Phalcon\Mvc\Model
     /**
      * Method to set the value of field first_name
      *
-     * @param string $first_name
+     * @param string $firstName
      * @return $this
      */
-    public function setFirstName($first_name)
+    public function setFirstName($firstName)
     {
-        $this->first_name = $first_name;
-
+        $this->fName = $firstName;
         return $this;
     }
 
     /**
-     * Returns the value of field first_name
+     * Returns the value of field firstName
      *
      * @return string
      */
     public function getFirstName()
     {
-        return $this->first_name;
+        return $this->fName;
+    }
+
+    /**
+     * Method to set the value of field last_name
+     *
+     * @param string $lastName
+     * @return $this
+     */
+    public function setLastName($lastName)
+    {
+        $this->lName = $lastName;
+        return $this;
+    }
+
+    /**
+     * Returns the value of field lastName
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lName;
+    }
+
+    /**
+     * Method to set the value of field last_name
+     *
+     * @param string $phone
+     * @return $this
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+        return $this;
+    }
+
+    /**
+     * Returns the value of field lastName
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Method to set the value of field last_name
+     *
+     * @param string $countryCode
+     * @return $this
+     */
+    public function setCountryCode($countryCode)
+    {
+        $this->countryCode = $countryCode;
+        return $this;
+    }
+
+    /**
+     * Returns the value of field lastName
+     *
+     * @return string
+     */
+    public function getCountryCode()
+    {
+        return $this->countryCode;
+    }
+
+    /**
+     * Method to set the value of field last_name
+     *
+     * @param string $timeZone
+     * @return $this
+     */
+    public function setTimeZone($timeZone)
+    {
+        $this->timeZone = $timeZone;
+        return $this;
+    }
+
+    /**
+     * Returns the value of field lastName
+     *
+     * @return string
+     */
+    public function getTimeZone()
+    {
+        return $this->timeZone;
+    }
+
+    /**
+     * Method to set the value of field last_name
+     *
+     * @return $this
+     */
+    public function setInsertedOn()
+    {
+        $date = date('Y-m-d H:i:s');
+        $this->insertedOn = $date;
+        return $this;
+    }
+
+    /**
+     * Returns the value of field lastName
+     *
+     * @return string
+     */
+    public function getInsertedOn()
+    {
+        return $this->insertedOn;
+    }
+
+    /**
+     * Method to set the value of field last_name
+     *
+     * @return $this
+     */
+    public function setUpdatedOn()
+    {
+        $date = date('Y-m-d H:i:s');
+        $this->updatedOn = $date;
+        return $this;
+    }
+
+    /**
+     * Returns the value of field lastName
+     *
+     * @return string
+     */
+    public function getUpdatedOn()
+    {
+        return $this->updatedOn;
     }
 
 

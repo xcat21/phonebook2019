@@ -93,4 +93,34 @@ class RecordController extends AbstractController
         return $records;
     }
 
+    /**
+     * Returns records list
+     *
+     * @return array
+     */
+    public function addItemAction()
+    {
+        // Init
+        $errors = [];
+
+        $data = (array) $this->request->getJsonRawBody();
+
+        // Add validation here
+
+        try {
+            $this->recordService->createRecord($data);
+        } catch (ServiceException $e) {
+            switch ($e->getCode()) {
+                case AbstractService::ERROR_ALREADY_EXISTS:
+                case RecordService::ERROR_UNABLE_CREATE_USER:
+                    throw new Http422Exception($e->getMessage(), $e->getCode(), $e);
+                default:
+                    throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);
+            }
+        }
+
+        return ["result" => "ok"];
+
+    }
+
 }
