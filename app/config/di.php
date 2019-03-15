@@ -79,7 +79,7 @@ $di->set(
 
         return $logger;
     },
-    true
+  true
 );
 
 /**

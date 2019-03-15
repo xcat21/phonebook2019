@@ -229,8 +229,9 @@ class RecordService extends AbstractService
                 throw new ServiceException('Unable to update record', self::ERROR_UNABLE_UPDATE_RECORD);
             }
 
-            return ["result" => "ok"];
+            $this->logger->info('Record with ID = '.$record->id.' successfully updated.');
 
+            return [];
 
         } catch (\PDOException $e) {
             throw new ServiceException($e->getMessage(), $e->getCode(), $e);

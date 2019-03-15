@@ -11,9 +11,10 @@ namespace App\Services;
 /**
  * Class AbstractService
  *
- * @property \Phalcon\Db\Adapter\Pdo\Mysql   $db
+ * @property \Phalcon\Db\Adapter\Pdo\Mysql      $db
  * @property \Phalcon\Cache\Backend\Redis       $cache
  * @property \Phalcon\Config                    $config
+ * @property \Phalcon\Logger                    $logger
  */
 abstract class AbstractService extends \Phalcon\DI\Injectable
 {
