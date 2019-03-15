@@ -38,11 +38,17 @@ try {
 
             if (is_array($return)) {
 
-                if (!empty($return)) {  // Check if $result array is empty to response with 204
-                    // Transforming arrays to JSON
-                    $app->response->setContent(json_encode($return));
+                // Check if it is a creation  TODO: Auto generation of location link
+                if (!empty($return['location'])) {
+                    $app->response->setStatusCode('201', 'Created');
+                    $app->response->setHeader('Location', $return['location']);
                 } else {
-                    $app->response->setStatusCode('204', 'No Content');
+                    if (!empty($return)) {  // Check if $result array is empty to response with 204
+                        // Transforming arrays to JSON
+                        $app->response->setContent(json_encode($return));
+                    } else {
+                        $app->response->setStatusCode('204', 'No Content');
+                    }
                 }
             } elseif (!strlen($return)) {
                 // Successful response without any content

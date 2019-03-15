@@ -2,9 +2,9 @@ require 'yaml'
 require 'fileutils'
 
 domains = {
-  api:  'api.phonebook.loc',
-  backend:  'backend.phonebook.loc',
-  frontend:  'frontend.phonebook.loc',
+   api:  'api.phonebook.loc',
+#  backend:  'backend.phonebook.loc',
+#  frontend:  'frontend.phonebook.loc',
 }
 config = {
   local: './vagrant/config/vagrant-local.yml',
@@ -71,5 +71,5 @@ Vagrant.configure(2) do |config|
   config.vm.provision 'shell', path: './vagrant/provision/always-as-vagrant.sh', run: 'always', privileged: false
 
   # post-install message (vagrant console)
-  config.vm.post_up_message = "API URL: http://#{domains[:api]}\n"
+  config.vm.post_up_message = "API URL: http://#{domains[:api]}:8000\n"
 end

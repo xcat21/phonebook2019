@@ -182,7 +182,7 @@ class RecordService extends AbstractService
               throw new ServiceException('Unable to create record', self::ERROR_UNABLE_CREATE_RECORD);
           }
 
-          return ["result" => "ok"];
+          return ["location" => 'http://api.phonebook.loc:8000/v1/phonebook/'.$record->id];
 
         } catch (\PDOException $e) {
             throw new ServiceException($e->getMessage(), $e->getCode(), $e);

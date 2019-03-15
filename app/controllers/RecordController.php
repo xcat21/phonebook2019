@@ -116,7 +116,7 @@ class RecordController extends AbstractController
         }
 
         try {
-            $this->recordService->createRecord($data);
+            $result = $this->recordService->createRecord($data);
         } catch (ServiceException $e) {
             switch ($e->getCode()) {
                 case AbstractService::ERROR_ALREADY_EXISTS:
@@ -127,7 +127,7 @@ class RecordController extends AbstractController
             }
         }
 
-        return ["result" => "ok"];
+        return $result;
 
     }
 
