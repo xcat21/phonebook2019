@@ -15,6 +15,7 @@ try {
 
     // Autoloading classes
     require __DIR__.'/../app/config/loader.php';
+    require __DIR__ .'/../vendor/autoload.php';
 
     // Initializing DI container
     /** @var \Phalcon\DI\FactoryDefault $di */

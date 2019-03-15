@@ -14,6 +14,11 @@ use App\Controllers\HttpExceptions\Http500Exception;
 use App\Services\AbstractService;
 use App\Services\ServiceException;
 use App\Services\RecordService;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Psr7\Request as guzzleRequest;
+use GuzzleHttp\Client as guzzleClient;
+use GuzzleHttp\Promise as guzzlePromise;
+use GuzzleHttp\Exception as guzzleException;
 
 /**
  * Operations with Records: CRUD
@@ -100,12 +105,15 @@ class RecordController extends AbstractController
      */
     public function addItemAction()
     {
-        // Init
-        $errors = [];
-
         $data = (array) $this->request->getJsonRawBody();
 
         // Add validation here
+        $errors = $this->validateRecord($data);
+
+        if ($errors) {
+            $exception = new Http400Exception(_('Input parameters validation error'), self::ERROR_INVALID_REQUEST);
+            throw $exception->addErrorDetails($errors);
+        }
 
         try {
             $this->recordService->createRecord($data);
@@ -138,6 +146,14 @@ class RecordController extends AbstractController
         $data["id"] = (int) $id;
 
         // Add validation here
+
+        // Add validation here
+        $errors = $this->validateRecord($data);
+
+        if ($errors) {
+            $exception = new Http400Exception(_('Input parameters validation error'), self::ERROR_INVALID_REQUEST);
+            throw $exception->addErrorDetails($errors);
+        }
 
         try {
             $result = $this->recordService->updateRecord($data);
@@ -183,5 +199,115 @@ class RecordController extends AbstractController
 
     }
 
+    /**
+     * Returns records list
+     *
+     * @param $countryCode string
+     * @param $timeZone string
+     *
+     * @throws
+     *
+     * @return array
+     */
 
+    protected function validateExternal($countryCode = '', $timeZone = '')
+    {
+        // Init
+        $extErrors = [];
+
+        try {
+        $client = new guzzleClient([
+                                        'base_uri' => 'https://api.hostaway.com/',
+                                        'http_errors' => false
+                                   ]);
+
+
+            // Initiate each request but do not block
+            $promises = [
+                'countryCodes' => $client->getAsync('/countries'),
+                'timeZones' => $client->getAsync('/timezones'),
+            ];
+
+            $results = guzzlePromise\unwrap($promises);
+
+            $cCodes = array_keys(json_decode($results['countryCodes']->getBody(), true)['result']);
+            $tZones = array_keys(json_decode($results['timeZones']->getBody(), true)['result']);
+
+            $validCountry = (empty($countryCode) || in_array($countryCode, $cCodes)) ? true : false;
+            $validZone = (empty($timeZone) || in_array($timeZone, $tZones)) ? true : false;
+
+            if(!$validCountry) {
+                $extErrors["countryCodeAPI"] = 'Country code must be presented on external API';
+            }
+
+            if(!$validZone) {
+                $extErrors["timeZoneAPI"] = 'Time zone must be presented on external API';
+            }
+
+            return $extErrors;
+
+        } catch ( guzzleException\ClientException $e) {
+            throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);
+        }
+
+    }
+
+    /**
+     * Returns records list
+     *
+     * @param $data string
+     *
+     * @throws
+     *
+     * @return array
+     */
+
+    protected function validateRecord($data)
+    {
+        // init
+        $errors = [];
+
+        // First name validation
+        if (!is_string($data['firstName'])
+            || mb_strlen($data['firstName'], 'UTF-8') > 40
+            || mb_strlen($data['firstName'], 'UTF-8') < 1)
+        {
+            $errors['firstName'] = 'First name must consist of 1-40 symbols';
+        }
+
+        // Last name validation
+        if (!empty($data['lastName'])) {
+            if (!is_string($data['lastName'])
+                || mb_strlen($data['lastName'], 'UTF-8') > 40
+                || mb_strlen($data['lastName'], 'UTF-8') < 1) {
+                $errors['lastName'] = 'First name must consist of 1-40 symbols';
+            }
+        }
+        // Phone number validation
+
+        if (!is_string($data['phoneNumber'])
+            || !preg_match('/^\+([0-9]{2})(\s|-)([0-9]{3})(\s|-)([0-9]{9})$/', $data['phoneNumber'])) {
+            $errors['phoneNumber'] = 'Phone number must be in format: +XX XXX XXXXXXXXX';
+        }
+
+        // Country code pre-validation
+        if (!empty($data['countryCode'])) {
+            if (!is_string($data['countryCode']) || mb_strlen($data['countryCode'], 'UTF-8') != 2) {
+                $errors['countryCode'] = 'Country code must consist of 2 symbols';
+            }
+        }
+        // TimeZone pre-validation
+        if (!empty($data['timeZone'])) {
+            if (!is_string($data['timeZone'])
+                || mb_strlen($data['timeZone'], 'UTF-8') > 40
+                || mb_strlen($data['timeZone'], 'UTF-8') < 3) {
+                $errors['timeZone'] = 'Time zone must consist of 3-40 symbols';
+            }
+        }
+
+            $externalValidation = $this->validateExternal($data['countryCode'],$data['timeZone']);
+            $errors = array_merge($errors,$externalValidation);
+
+        return $errors;
+    }
 }

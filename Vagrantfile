@@ -71,5 +71,5 @@ Vagrant.configure(2) do |config|
   config.vm.provision 'shell', path: './vagrant/provision/always-as-vagrant.sh', run: 'always', privileged: false
 
   # post-install message (vagrant console)
-  config.vm.post_up_message = "API URL: http://#{domains[:api]}\nFrontend URL: http://#{domains[:frontend]}\nBackend URL: http://#{domains[:backend]}"
+  config.vm.post_up_message = "API URL: http://#{domains[:api]}\n"
 end

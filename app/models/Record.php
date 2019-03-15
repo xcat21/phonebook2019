@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use  Phalcon\Mvc\Model\Validator as phalconValidator;
+
 class Record extends \Phalcon\Mvc\Model
 {
 
@@ -59,7 +61,7 @@ class Record extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("phonebook_db");
-        $this->setSource("phoneBookItem");
+        $this->setSource("Record");
     }
 
     /**
@@ -228,7 +230,6 @@ class Record extends \Phalcon\Mvc\Model
 
 
 // ----
-
 
 
     /**

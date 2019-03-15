@@ -35,7 +35,8 @@ class RecordMigration_100 extends Migration
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
-                            'size' => 200,
+                            'default' => null,
+                            'size' => 60,
                             'after' => 'id'
                         ]
                     ),
@@ -43,8 +44,8 @@ class RecordMigration_100 extends Migration
                         'lName',
                         [
                             'type' => Column::TYPE_VARCHAR,
-                            'size' => 200,
-                            'after' => 'fname'
+                            'size' => 60,
+                            'after' => 'fName'
                         ]
                     ),
                     new Column(
@@ -53,7 +54,7 @@ class RecordMigration_100 extends Migration
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
                             'size' => 20,
-                            'after' => 'lname'
+                            'after' => 'lName'
                         ]
                     ),
                     new Column(
@@ -68,7 +69,7 @@ class RecordMigration_100 extends Migration
                         'timeZone',
                         [
                             'type' => Column::TYPE_VARCHAR,
-                            'size' => 60,
+                            'size' => 40,
                             'after' => 'countryCode'
                         ]
                     ),
@@ -92,7 +93,9 @@ class RecordMigration_100 extends Migration
                     )
                 ],
                 'indexes' => [
-                    new Index('PRIMARY', ['id'], 'PRIMARY')
+                    new Index('PRIMARY', ['id'], 'PRIMARY'),
+                    new Index('i_fName_fulltext', ['fName'], 'FULLTEXT'),
+                    new Index('i_lName_fulltext', ['lName'], 'FULLTEXT'),
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
