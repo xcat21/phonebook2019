@@ -10,7 +10,7 @@ class GetItemsCest
 
     public function getErrorForGET404 (ApiTester $I)
     {
-        $I->wantTo('get an 404 code when sending GET with not valid request to my Phonebook via API');
+        $I->wantTo('get an 404 when sending GET with not valid URL resource ');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/kj54');
@@ -24,7 +24,7 @@ class GetItemsCest
 
     public function getErrorForPOST404 (ApiTester $I)
     {
-        $I->wantTo('get an 404 code when sending POST with not valid request to my Phonebook via API');
+        $I->wantTo('get an 404 when sending POST with not valid request');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPOST('v1/phonebook/hjsdhgbe');
@@ -38,7 +38,7 @@ class GetItemsCest
 
     public function getRecordByIdOk(ApiTester $I)
     {
-        $I->wantTo('get an existing item from my Phonebook via API');
+        $I->wantTo('get an item from my Phonebook by ID');
       //  $I->amHttpAuthenticated('service_user', '123456');
       //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/2');
@@ -61,7 +61,7 @@ class GetItemsCest
 
     public function getRecordById204 (ApiTester $I)
     {
-        $I->wantTo('get an 204 code when asking for non-existed item from my Phonebook via API');
+        $I->wantTo('get an 204 when asking for non-existed item');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/34');
@@ -71,7 +71,7 @@ class GetItemsCest
 
     public function getRecordsListAll (ApiTester $I)
     {
-        $I->wantTo('get list of all records from my Phonebook via API');
+        $I->wantTo('get list of all records');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/');
@@ -94,7 +94,7 @@ class GetItemsCest
 
     public function getRecordsListAllLimit (ApiTester $I)
     {
-        $I->wantTo('get list of all records from my Phonebook via API with limit');
+        $I->wantTo('get list of all records with limit');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook?limit=2');
@@ -109,7 +109,7 @@ class GetItemsCest
 
     public function getRecordsListAllLimitOffset (ApiTester $I)
     {
-        $I->wantTo('get list of all records from my Phonebook via API with limit and offset');
+        $I->wantTo('get list of all records with limit and offset');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook?limit=2&offset=2');
@@ -124,7 +124,7 @@ class GetItemsCest
 
     public function getRecordsListAllLimitOffset204 (ApiTester $I)
     {
-        $I->wantTo('get an 204 code when asking for non-existed offset from my Phonebook via API');
+        $I->wantTo('get an 204 when asking for non-existed offset');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook?limit=2&offset=200');
@@ -134,7 +134,7 @@ class GetItemsCest
 
     public function getRecordsListAllSafeLimitOffset (ApiTester $I)
     {
-        $I->wantTo('get list of all records with default values of limit and offset when them are not valid');
+        $I->wantTo('get all records with default limit and offset when limit and offset is incorrect');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook?limit=kjdhfjk&offset=kejrh');

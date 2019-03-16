@@ -7,7 +7,7 @@ class DeleteItemsCest
     }
 
     // tests
-
+/*
     public function getRecordsNoName204 (ApiTester $I)
     {
         $I->wantTo('get an 204 code when search without NAME in my Phonebook via API');
@@ -27,6 +27,6 @@ class DeleteItemsCest
         $I->seeResponseCodeIs(204);
         $I->seeResponseEquals(null);
     }
-
+*/
 
 }

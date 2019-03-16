@@ -139,11 +139,8 @@ class RecordController extends AbstractController
      */
     public function updateRecordAction($id)
     {
-        // Init
-        $errors = [];
-
         $data = (array) $this->request->getJsonRawBody();
-        $data["id"] = (int) $id;
+        $data['id'] = (int) $id;
 
         // Add validation here
 
@@ -255,7 +252,7 @@ class RecordController extends AbstractController
     /**
      * Returns records list
      *
-     * @param $data string
+     * @param $data array
      *
      * @throws
      *
