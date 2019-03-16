@@ -1,56 +1,47 @@
 <?php
 
-namespace App\Models;
+declare(strict_types=1);
 
-use  Phalcon\Mvc\Model\Validator as phalconValidator;
+namespace App\Models;
 
 class Record extends \Phalcon\Mvc\Model
 {
-
     /**
-     *
-     * @var integer
+     * @var int
      */
     public $id;
 
     /**
-     *
      * @var string
      */
     public $fName;
 
     /**
-     *
      * @var string
      */
     public $lName;
 
     /**
-     *
      * @var string
      */
     public $phone;
 
     /**
-     *
      * @var string
      */
     public $countryCode;
 
     /**
-     *
      * @var string
      */
     public $timeZone;
 
     /**
-     *
      * @var string
      */
     public $insertedOn;
 
     /**
-     *
      * @var string
      */
     public $updatedOn;
@@ -60,8 +51,8 @@ class Record extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSchema("phonebook_db");
-        $this->setSource("Record");
+        $this->setSchema('phonebook_db');
+        $this->setSource('Record');
     }
 
     /**
@@ -73,21 +64,25 @@ class Record extends \Phalcon\Mvc\Model
     {
         return 'Record';
     }
-// ----
+
+    // ----
+
     /**
-     * Method to set the value of field first_name
+     * Method to set the value of field first_name.
      *
      * @param string $firstName
+     *
      * @return $this
      */
     public function setFirstName($firstName)
     {
         $this->fName = $firstName;
+
         return $this;
     }
 
     /**
-     * Returns the value of field firstName
+     * Returns the value of field firstName.
      *
      * @return string
      */
@@ -97,19 +92,21 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field last_name
+     * Method to set the value of field last_name.
      *
      * @param string $lastName
+     *
      * @return $this
      */
     public function setLastName($lastName)
     {
         $this->lName = $lastName;
+
         return $this;
     }
 
     /**
-     * Returns the value of field lastName
+     * Returns the value of field lastName.
      *
      * @return string
      */
@@ -119,19 +116,21 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field last_name
+     * Method to set the value of field last_name.
      *
      * @param string $phone
+     *
      * @return $this
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
+
         return $this;
     }
 
     /**
-     * Returns the value of field lastName
+     * Returns the value of field lastName.
      *
      * @return string
      */
@@ -141,19 +140,21 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field last_name
+     * Method to set the value of field last_name.
      *
      * @param string $countryCode
+     *
      * @return $this
      */
     public function setCountryCode($countryCode)
     {
         $this->countryCode = $countryCode;
+
         return $this;
     }
 
     /**
-     * Returns the value of field lastName
+     * Returns the value of field lastName.
      *
      * @return string
      */
@@ -163,19 +164,21 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field last_name
+     * Method to set the value of field last_name.
      *
      * @param string $timeZone
+     *
      * @return $this
      */
     public function setTimeZone($timeZone)
     {
         $this->timeZone = $timeZone;
+
         return $this;
     }
 
     /**
-     * Returns the value of field lastName
+     * Returns the value of field lastName.
      *
      * @return string
      */
@@ -185,7 +188,7 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field last_name
+     * Method to set the value of field last_name.
      *
      * @return $this
      */
@@ -193,11 +196,12 @@ class Record extends \Phalcon\Mvc\Model
     {
         $date = date('Y-m-d H:i:s');
         $this->insertedOn = $date;
+
         return $this;
     }
 
     /**
-     * Returns the value of field lastName
+     * Returns the value of field lastName.
      *
      * @return string
      */
@@ -207,7 +211,7 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field last_name
+     * Method to set the value of field last_name.
      *
      * @return $this
      */
@@ -215,11 +219,12 @@ class Record extends \Phalcon\Mvc\Model
     {
         $date = date('Y-m-d H:i:s');
         $this->updatedOn = $date;
+
         return $this;
     }
 
     /**
-     * Returns the value of field lastName
+     * Returns the value of field lastName.
      *
      * @return string
      */
@@ -228,15 +233,14 @@ class Record extends \Phalcon\Mvc\Model
         return $this->updatedOn;
     }
 
-
-// ----
-
+    // ----
 
     /**
-     * Allows to query a set of records that match the specified conditions
+     * Allows to query a set of records that match the specified conditions.
      *
      * @param mixed $parameters
-     * @return Record[]|Record|\Phalcon\Mvc\Model\ResultSetInterface
+     *
+     * @return \Phalcon\Mvc\Model\ResultSetInterface|Record|Record[]
      */
     public static function find($parameters = null)
     {
@@ -244,14 +248,14 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Allows to query the first record that match the specified conditions
+     * Allows to query the first record that match the specified conditions.
      *
      * @param mixed $parameters
-     * @return Record|\Phalcon\Mvc\Model\ResultInterface
+     *
+     * @return \Phalcon\Mvc\Model\ResultInterface|Record
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
     }
-
 }

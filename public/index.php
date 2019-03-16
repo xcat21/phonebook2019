@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
+/*
  * Created by PhpStorm.
  * User: hovercat
  * Date: 13.03.2019
@@ -15,7 +15,7 @@ try {
 
     // Autoloading classes
     require __DIR__.'/../app/config/loader.php';
-    require __DIR__ .'/../vendor/autoload.php';
+    require __DIR__.'/../vendor/autoload.php';
 
     // Initializing DI container
     /** @var \Phalcon\DI\FactoryDefault $di */
@@ -37,7 +37,6 @@ try {
             $return = $app->getReturnedValue();
 
             if (is_array($return)) {
-
                 // Check if it is a creation  TODO: Auto generation of location link
                 if (!empty($return['location'])) {
                     $app->response->setStatusCode('201', 'Created');

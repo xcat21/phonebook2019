@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+declare(strict_types=1);
 
 class GetItemsCest
 {
@@ -8,9 +10,9 @@ class GetItemsCest
 
     // tests
 
-    public function getErrorForGET404 (ApiTester $I)
+    public function getErrorForGET404(ApiTester $I)
     {
-        $I->wantTo('get an 404 when sending GET with not valid URL resource ');
+        $I->wantTo('Get (404) when sending GET with not valid URL resource ');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/kj54');
@@ -18,13 +20,13 @@ class GetItemsCest
         $I->seeResponseContains('{"error":1,"error_description":"URI not found or error in request."}');
         $I->seeResponseMatchesJsonType([
             'error' => 'integer',
-            'error_description' => 'string'
+            'error_description' => 'string',
         ]);
     }
 
-    public function getErrorForPOST404 (ApiTester $I)
+    public function getErrorForPOST404(ApiTester $I)
     {
-        $I->wantTo('get an 404 when sending POST with not valid request');
+        $I->wantTo('Get (404) when sending POST with not valid request');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPOST('v1/phonebook/hjsdhgbe');
@@ -32,15 +34,15 @@ class GetItemsCest
         $I->seeResponseContains('{"error":1,"error_description":"URI not found or error in request."}');
         $I->seeResponseMatchesJsonType([
             'error' => 'integer',
-            'error_description' => 'string'
+            'error_description' => 'string',
         ]);
     }
 
     public function getRecordByIdOk(ApiTester $I)
     {
-        $I->wantTo('get an item from my Phonebook by ID');
-      //  $I->amHttpAuthenticated('service_user', '123456');
-      //  $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->wantTo('Get (200) getting an item by ID');
+        //  $I->amHttpAuthenticated('service_user', '123456');
+        //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/2');
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
@@ -55,13 +57,13 @@ class GetItemsCest
             'countryCode' => 'string',
             'timeZone' => 'string',
             'insertedOn' => 'string',
-            'updatedOn' => 'string'
+            'updatedOn' => 'string',
         ]);
     }
 
-    public function getRecordById204 (ApiTester $I)
+    public function getRecordById204(ApiTester $I)
     {
-        $I->wantTo('get an 204 when asking for non-existed item');
+        $I->wantTo('Get (204) when asking for non-existed item');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/34');
@@ -69,9 +71,9 @@ class GetItemsCest
         $I->seeResponseEquals(null);
     }
 
-    public function getRecordsListAll (ApiTester $I)
+    public function getRecordsListAll(ApiTester $I)
     {
-        $I->wantTo('get list of all records');
+        $I->wantTo('Get (200) and list of all records');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/');
@@ -92,9 +94,9 @@ class GetItemsCest
                                     '019-03-11 10:43:00","updatedOn":"2019-03-15 15:20:00"}]');
     }
 
-    public function getRecordsListAllLimit (ApiTester $I)
+    public function getRecordsListAllLimit(ApiTester $I)
     {
-        $I->wantTo('get list of all records with limit');
+        $I->wantTo('Get (200) and list of all records with limit');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook?limit=2');
@@ -107,9 +109,9 @@ class GetItemsCest
                                     ':40:00"}]');
     }
 
-    public function getRecordsListAllLimitOffset (ApiTester $I)
+    public function getRecordsListAllLimitOffset(ApiTester $I)
     {
-        $I->wantTo('get list of all records with limit and offset');
+        $I->wantTo('Get (200) and list of all records with limit and offset');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook?limit=2&offset=2');
@@ -122,9 +124,9 @@ class GetItemsCest
                                     'dOn":"2019-03-15 18:40:00"}]');
     }
 
-    public function getRecordsListAllLimitOffset204 (ApiTester $I)
+    public function getRecordsListAllLimitOffset204(ApiTester $I)
     {
-        $I->wantTo('get an 204 when asking for non-existed offset');
+        $I->wantTo('Get (204) when asking for non-existed offset');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook?limit=2&offset=200');
@@ -132,9 +134,9 @@ class GetItemsCest
         $I->seeResponseEquals(null);
     }
 
-    public function getRecordsListAllSafeLimitOffset (ApiTester $I)
+    public function getRecordsListAllSafeLimitOffset(ApiTester $I)
     {
-        $I->wantTo('get all records with default limit and offset when limit and offset is incorrect');
+        $I->wantTo('Get (200) and all records with incorrect limit/offset');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook?limit=kjdhfjk&offset=kejrh');
@@ -154,5 +156,4 @@ class GetItemsCest
                                     '"countryCode":"VU","timeZone":"Antarctica\/DumontDUrville","insertedOn":"2'.
                                     '019-03-11 10:43:00","updatedOn":"2019-03-15 15:20:00"}]');
     }
-
 }

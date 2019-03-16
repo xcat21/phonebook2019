@@ -1,11 +1,12 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: hovercat
  * Date: 13.03.2019
- * Time: 13:05
+ * Time: 13:05.
  */
-
 
 namespace App\Controllers;
 
@@ -13,42 +14,42 @@ use App\Controllers\HttpExceptions\Http400Exception;
 use App\Controllers\HttpExceptions\Http422Exception;
 use App\Controllers\HttpExceptions\Http500Exception;
 use App\Services\AbstractService;
-use App\Services\ServiceException;
 use App\Services\RecordService;
+use App\Services\ServiceException;
 
 /**
- * Operations with Users: CRUD
+ * Operations with Users: CRUD.
  */
 class UsersController extends AbstractController
 {
     /**
-     * Adding user
+     * Adding user.
      */
     public function addAction()
     {
         /** Init Block **/
         $errors = [];
         $data = [];
-        /** End Init Block **/
+        // End Init Block
 
-        /** Validation Block **/
+        // Validation Block
         $data['login'] = $this->request->getPost('login');
-        if (!is_string($data['login']) || !preg_match('/^[A-z0-9_-]{3,16}$/', $data['login'])) {
+        if (!\is_string($data['login']) || !preg_match('/^[A-z0-9_-]{3,16}$/', $data['login'])) {
             $errors['login'] = 'Login must consist of 3-16 latin symbols, numbers or \'-\' and \'_\' symbols';
         }
 
         $data['password'] = $this->request->getPost('password');
-        if (!is_string($data['password']) || !preg_match('/^[A-z0-9_-]{6,18}$/', $data['password'])) {
+        if (!\is_string($data['password']) || !preg_match('/^[A-z0-9_-]{6,18}$/', $data['password'])) {
             $errors['password'] = 'Password must consist of 6-18 latin symbols, numbers or \'-\' and \'_\' symbols';
         }
 
         $data['first_name'] = $this->request->getPost('first_name');
-        if ((!empty($data['first_name'])) && (!is_string($data['first_name']))) {
+        if ((!empty($data['first_name'])) && (!\is_string($data['first_name']))) {
             $errors['first_name'] = 'String expected';
         }
 
         $data['last_name'] = $this->request->getPost('last_name');
-        if ((!empty($data['last_name'])) && (!is_string($data['last_name']))) {
+        if ((!empty($data['last_name'])) && (!\is_string($data['last_name']))) {
             $errors['last_name'] = 'String expected';
         }
 
@@ -56,9 +57,9 @@ class UsersController extends AbstractController
             $exception = new Http400Exception(_('Input parameters validation error'), self::ERROR_INVALID_REQUEST);
             throw $exception->addErrorDetails($errors);
         }
-        /** End Validation Block **/
+        // End Validation Block
 
-        /** Passing to business logic and preparing the response **/
+        // Passing to business logic and preparing the response
         try {
             $this->usersService->createUser($data);
         } catch (ServiceException $e) {
@@ -70,11 +71,11 @@ class UsersController extends AbstractController
                     throw new Http500Exception(_('Internal Server Error'), $e->getCode(), $e);
             }
         }
-        /** End Passing to business logic and preparing the response  **/
+        // End Passing to business logic and preparing the response
     }
 
     /**
-     * Returns user list
+     * Returns user list.
      *
      * @return array
      */
@@ -90,17 +91,17 @@ class UsersController extends AbstractController
     }
 
     /**
-     * Updating existing user
+     * Updating existing user.
      *
      * @param string $userId
      */
     public function updateUserAction($userId)
     {
         $errors = [];
-        $data   = [];
+        $data = [];
 
         $data['login'] = $this->request->getPut('login');
-        if ((!is_null($data['login'])) && (!is_string($data['login']) || !preg_match(
+        if ((null !== $data['login']) && (!\is_string($data['login']) || !preg_match(
                     '/^[A-z0-9_-]{3,16}$/',
                     $data['login']
                 ))
@@ -109,7 +110,7 @@ class UsersController extends AbstractController
         }
 
         $data['password'] = $this->request->getPut('password');
-        if ((!is_null($data['password'])) && (!is_string($data['password']) || !preg_match(
+        if ((null !== $data['password']) && (!\is_string($data['password']) || !preg_match(
                     '/^[A-z0-9_-]{6,18}$/',
                     $data['password']
                 ))
@@ -118,17 +119,17 @@ class UsersController extends AbstractController
         }
 
         $data['old_password'] = $this->request->getPut('old_password');
-        if ((!is_null($data['old_password'])) && (!is_string($data['old_password']))) {
+        if ((null !== $data['old_password']) && (!\is_string($data['old_password']))) {
             $errors['old_password'] = 'Old password must be a string';
         }
 
         $data['first_name'] = $this->request->getPut('first_name');
-        if ((!is_null($data['first_name'])) && (!is_string($data['first_name']))) {
+        if ((null !== $data['first_name']) && (!\is_string($data['first_name']))) {
             $errors['first_name'] = 'String expected';
         }
 
         $data['last_name'] = $this->request->getPut('last_name');
-        if ((!is_null($data['last_name'])) && (!is_string($data['last_name']))) {
+        if ((null !== $data['last_name']) && (!\is_string($data['last_name']))) {
             $errors['last_name'] = 'String expected';
         }
 
@@ -136,7 +137,7 @@ class UsersController extends AbstractController
             $errors['id'] = 'Id must be a positive integer';
         }
 
-        $data['id'] = (int)$userId;
+        $data['id'] = (int) $userId;
 
         if ($errors) {
             $exception = new Http400Exception(_('Input parameters validation error'), self::ERROR_INVALID_REQUEST);
@@ -157,7 +158,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * Delete an existing user
+     * Delete an existing user.
      *
      * @param string $userId
      */
@@ -168,7 +169,7 @@ class UsersController extends AbstractController
         }
 
         try {
-            $this->usersService->deleteUser((int)$userId);
+            $this->usersService->deleteUser((int) $userId);
         } catch (ServiceException $e) {
             switch ($e->getCode()) {
                 case RecordService::ERROR_UNABLE_DELETE_USER:

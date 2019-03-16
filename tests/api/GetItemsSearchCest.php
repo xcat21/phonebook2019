@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+declare(strict_types=1);
 
 class GetItemsSearchCest
 {
@@ -8,9 +10,9 @@ class GetItemsSearchCest
 
     // tests
 
-    public function getRecordsNoName204 (ApiTester $I)
+    public function getRecordsNoName204(ApiTester $I)
     {
-        $I->wantTo('get an 204 when search without NAME in URL');
+        $I->wantTo('Get (204) when search without NAME in URL');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/search');
@@ -18,9 +20,9 @@ class GetItemsSearchCest
         $I->seeResponseEquals(null);
     }
 
-    public function getRecordEmptyName204 (ApiTester $I)
+    public function getRecordEmptyName204(ApiTester $I)
     {
-        $I->wantTo('get an 204 when search with EMPTY NAME is provided in URL');
+        $I->wantTo('Get (204) when search with EMPTY NAME is provided in URL');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/search?name=');
@@ -28,9 +30,9 @@ class GetItemsSearchCest
         $I->seeResponseEquals(null);
     }
 
-    public function getRecordbyFirstName (ApiTester $I)
+    public function getRecordbyFirstName(ApiTester $I)
     {
-        $I->wantTo('get searched record by NAME without spaces from firstName');
+        $I->wantTo('Get (200) and searched by NAME w/o spaces from fName');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/search?name=moff');
@@ -40,10 +42,9 @@ class GetItemsSearchCest
                                     '43:00","updatedOn":"2019-03-15 15:20:00"}]');
     }
 
-
-    public function getRecordbyLastName (ApiTester $I)
+    public function getRecordbyLastName(ApiTester $I)
     {
-        $I->wantTo('get searched record by NAME without spaces from lastName');
+        $I->wantTo('Get (200) and searched by NAME w/o spaces from lName');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/search?name=vader');
@@ -53,9 +54,9 @@ class GetItemsSearchCest
                                     'On":"2019-03-11 10:43:00","updatedOn":"2019-03-15 15:20:00"}]');
     }
 
-    public function getRecordEmptyNoName204 (ApiTester $I)
+    public function getRecordEmptyNoName204(ApiTester $I)
     {
-        $I->wantTo('get an 204 when nothing is found by NAME provided in URL');
+        $I->wantTo('Get (204) when nothing is found by NAME');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/search?name=bash');
@@ -63,9 +64,9 @@ class GetItemsSearchCest
         $I->seeResponseEquals(null);
     }
 
-    public function getRecordbyNames (ApiTester $I)
+    public function getRecordbyNames(ApiTester $I)
     {
-        $I->wantTo('get records where firstName and lastName contain NAME');
+        $I->wantTo('Get (200) and where fName or lName contain NAME');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/search?name=w');
@@ -78,9 +79,9 @@ class GetItemsSearchCest
                                     '2 13:40:00"}]');
     }
 
-    public function getRecordbyFirstNamewithSpaces (ApiTester $I)
+    public function getRecordbyFirstNamewithSpaces(ApiTester $I)
     {
-        $I->wantTo('get searched record by NAME WITH SPACES from firstName');
+        $I->wantTo('Get (200) and searched record by NAME WITH SPACES');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook/search?name=moff%20kohl');
@@ -89,5 +90,4 @@ class GetItemsSearchCest
             '","countryCode":"SC","timeZone":"America\/Denver","insertedOn":"2019-03-11 10:'.
             '43:00","updatedOn":"2019-03-15 15:20:00"}]');
     }
-
 }

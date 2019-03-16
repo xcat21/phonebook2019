@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+declare(strict_types=1);
 
 class DeleteItemsCest
 {
@@ -28,5 +30,4 @@ class DeleteItemsCest
         $I->seeResponseEquals(null);
     }
 */
-
 }

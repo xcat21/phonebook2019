@@ -1,19 +1,18 @@
-<?php 
+<?php
+
+declare(strict_types=1);
 
 use Phalcon\Db\Column;
 use Phalcon\Db\Index;
-use Phalcon\Db\Reference;
 use Phalcon\Mvc\Model\Migration;
 
 /**
- * Class RecordMigration_100
+ * Class RecordMigration_100.
  */
 class RecordMigration_100 extends Migration
 {
     /**
-     * Define the table structure
-     *
-     * @return void
+     * Define the table structure.
      */
     public function morph()
     {
@@ -27,7 +26,7 @@ class RecordMigration_100 extends Migration
                             'notNull' => true,
                             'autoIncrement' => true,
                             'size' => 10,
-                            'first' => true
+                            'first' => true,
                         ]
                     ),
                     new Column(
@@ -37,7 +36,7 @@ class RecordMigration_100 extends Migration
                             'notNull' => true,
                             'default' => null,
                             'size' => 60,
-                            'after' => 'id'
+                            'after' => 'id',
                         ]
                     ),
                     new Column(
@@ -45,7 +44,7 @@ class RecordMigration_100 extends Migration
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'size' => 60,
-                            'after' => 'fName'
+                            'after' => 'fName',
                         ]
                     ),
                     new Column(
@@ -54,7 +53,7 @@ class RecordMigration_100 extends Migration
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
                             'size' => 20,
-                            'after' => 'lName'
+                            'after' => 'lName',
                         ]
                     ),
                     new Column(
@@ -62,7 +61,7 @@ class RecordMigration_100 extends Migration
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'size' => 2,
-                            'after' => 'phone'
+                            'after' => 'phone',
                         ]
                     ),
                     new Column(
@@ -70,7 +69,7 @@ class RecordMigration_100 extends Migration
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'size' => 40,
-                            'after' => 'countryCode'
+                            'after' => 'countryCode',
                         ]
                     ),
                     new Column(
@@ -79,7 +78,7 @@ class RecordMigration_100 extends Migration
                             'type' => Column::TYPE_DATETIME,
                             'notNull' => true,
                             'size' => 1,
-                            'after' => 'timeZone'
+                            'after' => 'timeZone',
                         ]
                     ),
                     new Column(
@@ -88,29 +87,27 @@ class RecordMigration_100 extends Migration
                             'type' => Column::TYPE_DATETIME,
                             'notNull' => true,
                             'size' => 1,
-                            'after' => 'insertedOn'
+                            'after' => 'insertedOn',
                         ]
-                    )
+                    ),
                 ],
                 'indexes' => [
                     new Index('PRIMARY', ['id'], 'PRIMARY'),
-                    new Index('i_fName_fulltext', ['fName'], 'FULLTEXT'),
-                    new Index('i_lName_fulltext', ['lName'], 'FULLTEXT'),
+                    new Index('i_fName', ['fName']),
+                    new Index('i_lName', ['lName']),
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
                     'AUTO_INCREMENT' => '5',
                     'ENGINE' => 'InnoDB',
-                    'TABLE_COLLATION' => 'utf8mb4_general_ci'
+                    'TABLE_COLLATION' => 'utf8mb4_general_ci',
                 ],
             ]
         );
     }
 
     /**
-     * Run the migrations
-     *
-     * @return void
+     * Run the migrations.
      */
     public function up()
     {
@@ -118,15 +115,11 @@ class RecordMigration_100 extends Migration
         $this->morph();
     }
 
-
     /**
-     * Reverse the migrations
-     *
-     * @return void
+     * Reverse the migrations.
      */
     public function down()
     {
         self::$connection->dropTable('Record');
     }
-
 }

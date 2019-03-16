@@ -6,3 +6,11 @@ modules:
         - REST:
               depends: PhpBrowser
               url: http://localhost:8000/
+        - Db:
+            dsn: 'mysql:host=localhost;dbname=phonebook_db'
+            user: 'phonebook_dbu'
+            password: 'superpass'
+            dump: 'tests/_data/dump.sql'
+            populate: true # run populator before all tests
+            cleanup: true # run populator before each test
+            populator: 'sudo mysql $dbname < $dump'

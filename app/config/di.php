@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 use Phalcon\Db\Adapter\Pdo\Mysql;
 
 // Initializing a DI Container
 $di = new \Phalcon\DI\FactoryDefault();
 
-/**
- * Overriding Response-object to set the Content-type header globally
- */
+// Overriding Response-object to set the Content-type header globally
 $di->setShared(
     'response',
     function () {
@@ -18,36 +18,35 @@ $di->setShared(
     }
 );
 
-/**
- * Overriding Request-object to set the Content-type header globally
- */
+// Overriding Request-object to set the Content-type header globally
 $di->setShared(
     'request',
     function () {
         $request = new \Phalcon\Http\Request();
+
         return $request;
     }
 );
 
-/** Common config */
+// Common config
 $di->setShared('config', $config);
 
-/** Database */
+// Database
 $di->set(
-    "db",
+    'db',
     function () use ($config) {
         return new Mysql(
             [
-                "host"     => $config->database->host,
-                "username" => $config->database->username,
-                "password" => $config->database->password,
-                "dbname"   => $config->database->dbname,
+                'host' => $config->database->host,
+                'username' => $config->database->username,
+                'password' => $config->database->password,
+                'dbname' => $config->database->dbname,
             ]
         );
     }
 );
 
-/** Logger Service */
+// Logger Service
 $di->set(
     'logger',
     function () use ($di) {
@@ -82,9 +81,7 @@ $di->set(
   true
 );
 
-/**
- * Caching service (Redis)
- */
+// Caching service (Redis)
 $di->set(
     'cache',
     function () use ($di) {
@@ -101,7 +98,7 @@ $di->set(
     true
 );
 
-/** Service to perform operations with the Records */
+// Service to perform operations with the Records
 $di->setShared('recordService', '\App\Services\RecordService');
 
 return $di;

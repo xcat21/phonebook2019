@@ -1,11 +1,12 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: hovercat
  * Date: 13.03.2019
- * Time: 12:05
+ * Time: 12:05.
  */
-
 $recordCollection = new \Phalcon\Mvc\Micro\Collection();
 $recordCollection->setHandler('\App\Controllers\RecordController', true);
 $recordCollection->setPrefix('/v1/phonebook');
@@ -25,7 +26,7 @@ $app->notFound(
             new \App\Controllers\HttpExceptions\Http404Exception(
                 _('URI not found or error in request.'),
                 \App\Controllers\AbstractController::ERROR_NOT_FOUND,
-                new \Exception('URI not found: ' . $app->request->getMethod() . ' ' . $app->request->getURI())
+                new \Exception('URI not found: '.$app->request->getMethod().' '.$app->request->getURI())
             );
         throw $exception;
     }
