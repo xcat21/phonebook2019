@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 use Phalcon\Db\Adapter\Pdo\Mysql;
 
+/**
+ * Dependency Injections container for phonebook application
+ * Contains all the shares of services to be injected.
+ */
+
 // Initializing a DI Container
 $di = new \Phalcon\DI\FactoryDefault();
 
@@ -28,10 +33,10 @@ $di->setShared(
     }
 );
 
-// Common config
+// Common config connection
 $di->setShared('config', $config);
 
-// Database
+// Database connection
 $di->set(
     'db',
     function () use ($config) {
@@ -46,7 +51,7 @@ $di->set(
     }
 );
 
-// Logger Service
+// Logger Service connection
 $di->set(
     'logger',
     function () use ($di) {
@@ -81,7 +86,7 @@ $di->set(
   true
 );
 
-// Caching service (Redis)
+// Caching service (Redis) connection
 $di->set(
     'cache',
     function () use ($di) {
@@ -101,4 +106,5 @@ $di->set(
 // Service to perform operations with the Records
 $di->setShared('recordService', '\App\Services\RecordService');
 
+// Return container
 return $di;

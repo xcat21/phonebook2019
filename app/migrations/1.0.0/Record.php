@@ -7,11 +7,13 @@ use Phalcon\Db\Index;
 use Phalcon\Mvc\Model\Migration;
 
 /**
- * Class RecordMigration_100.
+ * Migration Class RecordMigration_100. Creates mysql structure in database
+ * used by phalcon migration tool.
  */
 class RecordMigration_100 extends Migration
 {
     /**
+     * Create or update table Record.
      * Define the table structure.
      */
     public function morph()

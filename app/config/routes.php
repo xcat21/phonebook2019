@@ -1,11 +1,11 @@
 <?php
 
 declare(strict_types=1);
+
 /**
- * Created by PhpStorm.
- * User: hovercat
- * Date: 13.03.2019
- * Time: 12:05.
+ * Main router config file for phonebook application.
+ *
+ * Contains all the routes (end-points) for API via Micro\Collection
  */
 $recordCollection = new \Phalcon\Mvc\Micro\Collection();
 $recordCollection->setHandler('\App\Controllers\RecordController', true);
@@ -19,7 +19,7 @@ $recordCollection->delete('/{userId:[1-9][0-9]*}', 'deleteRecordAction');
 
 $app->mount($recordCollection);
 
-// not found URLs
+// not found URLs handler
 $app->notFound(
     function () use ($app) {
         $exception =

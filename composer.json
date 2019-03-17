@@ -1,11 +1,16 @@
 {
     "require": {
-        "codeception/codeception": "*",
-        "phalcon/devtools": "*",
-        "friendsofphp/php-cs-fixer": "^2.14",
         "igsem/phalcon-swagger": "*",
         "ext-gettext": "*",
         "guzzlehttp/guzzle": "~6.0",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-PDO": "*"
+    },
+    "require-dev": {
+        "codeception/codeception": "*",
+        "phalcon/devtools": "*",
+        "friendsofphp/php-cs-fixer": "^2.14",
+        "league/factory-muffin": "^3.0",
+        "league/factory-muffin-faker": "^2.0"
     }
 }

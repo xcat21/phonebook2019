@@ -1,12 +1,6 @@
 <?php
 
 declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: hovercat
- * Date: 13.03.2019
- * Time: 12:54.
- */
 
 namespace App\Controllers\HttpExceptions;
 
@@ -15,7 +9,7 @@ use App\Controllers\AbstractHttpException;
 /**
  * Class Http400Exception.
  *
- * Execption class for Bad Request Error (400)
+ * Exception class for Bad Request Error (400)
  */
 class Http400Exception extends AbstractHttpException
 {

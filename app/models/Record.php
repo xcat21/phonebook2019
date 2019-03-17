@@ -4,46 +4,42 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+/**
+ * Model class for RECORD table in database. Handles setters, getters and low-level operations.
+ *
+ * @property $id integer
+ * @property $fName string
+ * @property $lName string
+ * @property $phone string
+ * @property $countryCode string
+ * @property $timeZone string
+ * @property $insertedOn Datetime
+ * @property $updatedOn Datetime
+ */
 class Record extends \Phalcon\Mvc\Model
 {
-    /**
-     * @var int
-     */
+    /** @var int $id ID of the record in database. Auto-incremented */
     public $id;
 
-    /**
-     * @var string
-     */
+    /** @var string $fName First name of the person */
     public $fName;
 
-    /**
-     * @var string
-     */
+    /** @var string $lName Last name of the person */
     public $lName;
 
-    /**
-     * @var string
-     */
+    /** @var string $phone Phone number of the person in format +XX XXX XXXXXXXXX */
     public $phone;
 
-    /**
-     * @var string
-     */
+    /** @var string $countryCode Two chars code of the person's country based on ext API list */
     public $countryCode;
 
-    /**
-     * @var string
-     */
+    /** @var string $timeZone Time zone of the person based on ext API list */
     public $timeZone;
 
-    /**
-     * @var string
-     */
+    /** @var \DateTime $insertedOn Time when record has been created in phonebook */
     public $insertedOn;
 
-    /**
-     * @var string
-     */
+    /** @var \DateTime $updatedOn Time when record has been updated in phonebook */
     public $updatedOn;
 
     /**
@@ -51,6 +47,8 @@ class Record extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
+        // Set schema and source for table Record
+
         $this->setSchema('phonebook_db');
         $this->setSource('Record');
     }
@@ -64,8 +62,6 @@ class Record extends \Phalcon\Mvc\Model
     {
         return 'Record';
     }
-
-    // ----
 
     /**
      * Method to set the value of field first_name.
@@ -116,7 +112,7 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field last_name.
+     * Method to set the value of field phone.
      *
      * @param string $phone
      *
@@ -130,7 +126,7 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field lastName.
+     * Returns the value of field phone.
      *
      * @return string
      */
@@ -140,7 +136,7 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field last_name.
+     * Method to set the value of field countryCode.
      *
      * @param string $countryCode
      *
@@ -154,7 +150,7 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field lastName.
+     * Returns the value of field countryCode.
      *
      * @return string
      */
@@ -164,7 +160,7 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field last_name.
+     * Method to set the value of field timeZone.
      *
      * @param string $timeZone
      *
@@ -178,7 +174,7 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field lastName.
+     * Returns the value of field timeZone.
      *
      * @return string
      */
@@ -188,7 +184,7 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field last_name.
+     * Method to set the value of field insertedOn.
      *
      * @return $this
      */
@@ -201,7 +197,7 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field lastName.
+     * Returns the value of field insertedOn.
      *
      * @return string
      */
@@ -211,7 +207,7 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field last_name.
+     * Method to set the value of field updatedOn.
      *
      * @return $this
      */
@@ -224,7 +220,7 @@ class Record extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field lastName.
+     * Returns the value of field updatedOn.
      *
      * @return string
      */
@@ -232,8 +228,6 @@ class Record extends \Phalcon\Mvc\Model
     {
         return $this->updatedOn;
     }
-
-    // ----
 
     /**
      * Allows to query a set of records that match the specified conditions.

@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 
+/*
+ * Main config file for phonebook application
+ * Contains all the settings of entire application
+ *
+ * @author Roman Smirnov
+ *
+ */
+
 // Define base and app paths to be set in one place
 defined('BASE_PATH') || define('BASE_PATH', getenv('BASE_PATH') ?: realpath(__DIR__.'/../..'));
 defined('APP_PATH') || define('APP_PATH', BASE_PATH.'/app');
@@ -29,9 +37,9 @@ return new \Phalcon\Config(
             'fileName' => APP_PATH.'/logs/[%date%].log', // file name
             'level' => \Phalcon\Logger::INFO, // minimum level to log
         ],
-        /*
+
         'cache' => [
-            'lifetime' => 172800, // 2 days
+            'lifetime' => 300, // 5 min, should be set depends on the load and cache success
             'redis' => [
             'prefix' => 'article-demo-%path%_', // record prefix
             'host' => '127.0.0.1',
@@ -39,6 +47,5 @@ return new \Phalcon\Config(
             'index' => 0, // Database number in Redis. Must be integer
             ],
         ],
-        */
     ]
 );

@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 /**
- * Created by PhpStorm.
- * User: hovercat
- * Date: 13.03.2019
- * Time: 12:04.
+ * Loader config file for phonebook application.
+ *
+ * Contains all the paths to application layers
  */
 $loader = new \Phalcon\Loader();
 $loader->registerNamespaces(

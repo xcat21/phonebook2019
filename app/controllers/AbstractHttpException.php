@@ -1,12 +1,6 @@
 <?php
 
 declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: hovercat
- * Date: 13.03.2019
- * Time: 13:01.
- */
 
 namespace App\Controllers;
 
@@ -15,39 +9,27 @@ use App\Services\ServiceException;
 /**
  * Class AbstractHttpException.
  *
- * Runtime Exceptions
+ * Runtime Exceptions abstract constructors, properties and methods for all child exception classes.
  */
 abstract class AbstractHttpException extends \RuntimeException
 {
-    /**
-     * Possible fields in the answer body.
-     */
+    // Possible fields in exception body
     public const KEY_CODE = 'error';
     public const KEY_DETAILS = 'details';
     public const KEY_MESSAGE = 'error_description';
 
-    /**
-     * http result code.
-     *
-     * @var null
-     */
+    // HTTP result code
     protected $httpCode = null;
 
-    /**
-     * http error message.
-     *
-     * @var null
-     */
+    // HTTP error message
     protected $httpMessage = null;
 
-    /**
-     * Error info.
-     *
-     * @var array
-     */
+    // Error information
     protected $appError = [];
 
     /**
+     * Exception object constructor.
+     *
      * @param string     $appErrorMessage Exception message
      * @param int        $appErrorCode    Exception code
      * @param \Exception $previous        Chain of exceptions
@@ -56,11 +38,12 @@ abstract class AbstractHttpException extends \RuntimeException
      */
     public function __construct($appErrorMessage = null, $appErrorCode = null, \Exception $previous = null)
     {
+        // Check httpCode and httpMessage are not null
         if (null === $this->httpCode || null === $this->httpMessage) {
             throw new \RuntimeException('HttpException without httpCode or httpMessage');
         }
 
-        // Sending ServiceExceptions along the chain
+        // Sending ServiceExceptions by the chain
         if ($previous instanceof ServiceException) {
             if (null === $appErrorCode) {
                 $appErrorCode = $previous->getCode();
@@ -71,6 +54,7 @@ abstract class AbstractHttpException extends \RuntimeException
             }
         }
 
+        // Error information set
         $this->appError = [
             self::KEY_CODE => $appErrorCode,
             self::KEY_MESSAGE => $appErrorMessage,
@@ -80,7 +64,7 @@ abstract class AbstractHttpException extends \RuntimeException
     }
 
     /**
-     * Returns client error.
+     * Returns client error description.
      *
      * @return array|null
      */
@@ -90,7 +74,7 @@ abstract class AbstractHttpException extends \RuntimeException
     }
 
     /**
-     * Adding error array.
+     * Adding error array to the general chain.
      *
      * @param array $fields Array with errors
      *
@@ -103,7 +87,7 @@ abstract class AbstractHttpException extends \RuntimeException
         }
         $this->appError[self::KEY_DETAILS] = $fields;
 
-        // For throw
+        // Let throw upstairs
         return $this;
     }
 }

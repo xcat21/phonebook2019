@@ -1,17 +1,11 @@
 <?php
 
 declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: hovercat
- * Date: 13.03.2019
- * Time: 13:06.
- */
 
 namespace App\Services;
 
 /**
- * Class AbstractService.
+ * Class AbstractService for Phonebook application.
  *
  * @property \Phalcon\Db\Adapter\Pdo\Mysql $db
  * @property \Phalcon\Cache\Backend\Redis  $cache

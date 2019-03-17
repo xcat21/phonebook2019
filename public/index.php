@@ -1,13 +1,17 @@
 <?php
 
 declare(strict_types=1);
-/*
- * Created by PhpStorm.
- * User: hovercat
- * Date: 13.03.2019
- * Time: 12:03.
- */
+
 use App\Controllers\AbstractHttpException;
+
+/*
+ * Main index file - base end-point for phonebook application
+ *
+ * Contains general application cycle
+ *
+ * @author Roman Smirnov
+ *
+ */
 
 try {
     // Loading Configs
@@ -30,7 +34,7 @@ try {
     // Setting up routing
     require __DIR__.'/../app/config/routes.php';
 
-    // Making the correct answer after executing
+    // Making the correct answer after executing based on data received from controller
     $app->after(
         function () use ($app) {
             // Getting the return value of method
@@ -42,12 +46,20 @@ try {
                     $app->response->setStatusCode('201', 'Created');
                     $app->response->setHeader('Location', $return['location']);
                 } else {
-                    if (!empty($return)) {  // Check if $result array is empty to response with 204
+                    // Check if $result array is empty to response with 204
+                    if (!empty($return)) {
                         // Transforming arrays to JSON
                         $app->response->setContent(json_encode($return));
                     } else {
+                        // Answer with empty 204 No content
                         $app->response->setStatusCode('204', 'No Content');
                     }
+                }
+
+                // Check if we got response to delete operation
+                if (isset($return['deleted'])) {
+                    $app->response->setStatusCode('200', 'Ok');
+                    $app->response->setContent(null);
                 }
             } elseif (!strlen($return)) {
                 // Successful response without any content
@@ -78,6 +90,7 @@ try {
         ->send();
 } catch (\Exception $e) {
     // Standard error format
+
     $result = [
         AbstractHttpException::KEY_CODE => 500,
         AbstractHttpException::KEY_MESSAGE => 'Some error occurred on the server.',

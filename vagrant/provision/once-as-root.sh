@@ -76,7 +76,7 @@ apt-get install -y mc
 # service elasticsearch restart
 
 # info "Install Redis"
-# apt-get install -y redis-server
+apt-get install -y redis-server
 
 info "Install Supervisor"
 apt-get install -y supervisor
