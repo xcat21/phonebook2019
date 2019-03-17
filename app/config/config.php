@@ -39,12 +39,12 @@ return new \Phalcon\Config(
         ],
 
         'cache' => [
-            'lifetime' => 300, // 5 min, should be set depends on the load and cache success
+            'lifetime' => 180, // 3 min, should be set depends on the load and cache success
             'redis' => [
-            'prefix' => 'article-demo-%path%_', // record prefix
-            'host' => '127.0.0.1',
-            'port' => 6379,
-            'index' => 0, // Database number in Redis. Must be integer
+                'prefix' => 'phonebook-%path%_', // record prefix
+                'host' => '127.0.0.1',
+                'port' => 6379,
+                'index' => 0, // Database number in Redis. Must be integer
             ],
         ],
     ]

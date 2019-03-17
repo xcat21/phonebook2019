@@ -19,6 +19,12 @@ use GuzzleHttp\Promise as guzzlePromise;
  */
 class RecordController extends AbstractController
 {
+    /** @constant CACHE_KEY_EXT_CC Key to store External API data in cache */
+    public const CACHE_KEY_EXT_CC = 'external_api_cc';
+
+    /** @constant CACHE_KEY_EXT_TZ Key to store External API data in cache */
+    public const CACHE_KEY_EXT_TZ = 'external_api_tz';
+
     /**
      * Returns record by ID in array format.
      *
@@ -232,7 +238,7 @@ class RecordController extends AbstractController
      * Validates record fields for insert and update on controller level to fail faster.
      *
      * @param $data array
-     * @param $isCreate bool
+     * @param $isCreate bool|null
      *
      * @return array
      */
@@ -245,9 +251,9 @@ class RecordController extends AbstractController
 
         // First name validation
         if ($isCreate || !empty($data['firstName'])) { // Don't validate empty value on Update
-            if (!\is_string($data['firstName'])
-                || mb_strlen($data['firstName'], 'UTF-8') > 60
-                || mb_strlen($data['firstName'], 'UTF-8') < 1) {
+            if (!\is_string($data['firstName'] ?? '')
+                || mb_strlen($data['firstName'] ?? '', 'UTF-8') > 60
+                || mb_strlen($data['firstName'] ?? '', 'UTF-8') < 1) {
                 $errors['firstName'] = 'First name must consist of 1-60 symbols';
             }
         }
@@ -263,8 +269,8 @@ class RecordController extends AbstractController
 
         // Phone number validation
         if ($isCreate || !empty($data['phoneNumber'])) { // Don't validate empty value on Update
-            if (!\is_string($data['phoneNumber'])
-                || !preg_match('/^\+([0-9]{2})(\s|-)([0-9]{3})(\s|-)([0-9]{9})$/', $data['phoneNumber'])) {
+            if (!\is_string($data['phoneNumber'] ?? '')
+                || !preg_match('/^\+([0-9]{2})(\s|-)([0-9]{3})(\s|-)([0-9]{9})$/', $data['phoneNumber'] ?? '')) {
                 $errors['phoneNumber'] = 'Phone number must be in format: +XX XXX XXXXXXXXX';
             }
         }
@@ -286,7 +292,7 @@ class RecordController extends AbstractController
 
         // Perfom external validation of countryCode and timeZone to collect all the validation problems
         /** @var array $externalValidation Result of validation based on external API services */
-        $externalValidation = $this->validateExternal($data['countryCode'], $data['timeZone']);
+        $externalValidation = $this->validateExternal($data['countryCode'] ?? '', $data['timeZone'] ?? '');
 
         // Concat basic validation errors with external ones
         $errors = array_merge($errors, $externalValidation);
@@ -313,32 +319,47 @@ class RecordController extends AbstractController
         $extErrors = [];
 
         try {
-            // Create new guzzle HTTP client to get external APIs
+            $cachedCountriesAPI = $this->cache->get(self::CACHE_KEY_EXT_CC);
+            $cachedTimezonesAPI = $this->cache->get(self::CACHE_KEY_EXT_TZ);
 
-            /** @var /guzzleClient $client Handler of HTTP client requests */
-            $client = new guzzleClient([
-                'base_uri' => 'https://api.hostaway.com/',
-                'http_errors' => false,
-            ]);
+            if (empty($cachedCountriesAPI) || empty($cachedTimezonesAPI)) {
+                $this->logger->info('['.__METHOD__.'] Getting countryCodes and timeZones from external API');
 
-            // Initiate each async request external API but do not block
+                // Create new guzzle HTTP client to get external APIs
 
-            /** @var /guzzlePromise|array $promises Promises of objects to be retrieved from ext API */
-            $promises = [
-                'countryCodes' => $client->getAsync('/countries'),
-                'timeZones' => $client->getAsync('/timezones'),
-            ];
+                /** @var /guzzleClient $client Handler of HTTP client requests */
+                $client = new guzzleClient([
+                    'base_uri' => 'https://api.hostaway.com/',
+                    'http_errors' => false,
+                ]);
 
-            // Unwrap promises
-            /** @var object $results Object contained external API dictionaries */
-            $results = guzzlePromise\unwrap($promises);
+                // Initiate each async request external API but do not block
 
-            // Extract countryCodes and timeZones from dictionaries
-            /** @var array $cCodes List of proper countryCodes */
-            $cCodes = array_keys(json_decode((string) $results['countryCodes']->getBody(), true)['result']);
+                /** @var /guzzlePromise|array $promises Promises of objects to be retrieved from ext API */
+                $promises = [
+                    'countryCodes' => $client->getAsync('/countries'),
+                    'timeZones' => $client->getAsync('/timezones'),
+                ];
 
-            /** @var array $tZones List of proper timeZOnes */
-            $tZones = array_keys(json_decode((string) $results['timeZones']->getBody(), true)['result']);
+                // Unwrap promises
+                /** @var object $results Object contained external API dictionaries */
+                $results = guzzlePromise\unwrap($promises);
+
+                // Extract countryCodes and timeZones from dictionaries
+                /** @var array $cCodes List of proper countryCodes */
+                $cCodes = array_keys(json_decode((string) $results['countryCodes']->getBody(), true)['result']);
+
+                /** @var array $tZones List of proper timeZOnes */
+                $tZones = array_keys(json_decode((string) $results['timeZones']->getBody(), true)['result']);
+
+                $this->cache->save(self::CACHE_KEY_EXT_CC, $cCodes);
+                $this->cache->save(self::CACHE_KEY_EXT_TZ, $tZones);
+            } else {
+                $this->logger->info('['.__METHOD__.'] Getting countryCodes and timeZones from CACHE');
+
+                $cCodes = $cachedCountriesAPI = $this->cache->get(self::CACHE_KEY_EXT_CC);
+                $tZones = $cachedTimezonesAPI = $this->cache->get(self::CACHE_KEY_EXT_TZ);
+            }
 
             // Perform validation id values provided are in dictionaries or not
             /** @var bool $validCountry Flag if countryCode is valid */

@@ -90,13 +90,12 @@ $di->set(
 $di->set(
     'cache',
     function () use ($di) {
-        $config = $di['config'];
+        // Set config for Redis
+        $config = $di['config']->cache;
 
-        // Frontend Cache
-        $frontCache = new \Phalcon\Cache\Frontend\Data(['lifetime' => $config->lifetime]);
-
-        // Connect to redis (Backend Cache)
-        $redisClient = new \Phalcon\Cache\Backend\Redis($frontCache, $config->redis);
+        // Setup and configure Redis service
+        $frontCache = new Phalcon\Cache\Frontend\Igbinary(['lifetime' => $config->lifetime]);
+        $redisClient = new Phalcon\Cache\Backend\Redis($frontCache, ['redis' => $config->redis]);
 
         return $redisClient;
     },

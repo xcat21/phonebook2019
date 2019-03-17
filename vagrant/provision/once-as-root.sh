@@ -51,7 +51,7 @@ localedef ru_RU.UTF-8 -i ru_RU -f UTF-8
 info "Install additional software"
 #==  apt-get install -y mc php7.1-curl php7.1-cli php7.1-intl php7.1-mysqlnd php7.1-gd php7.1-fpm php7.1-mbstring php7.1-xml php7.1-zip unzip nginx mysql-server-5.7
 apt-get install -y php7.1-curl php7.1-cli php7.1-intl php7.1-mysqlnd php7.1-gd php7.1-fpm php7.1-mbstring php7.1-xml php7.1-zip php7.1-bcmath php-amqp php7.1-zmq php7.1-soap unzip nginx
-apt-get install -y libpcre3-dev
+apt-get install -y libpcre3-dev php7.1-redis
 apt-get install -y mariadb-server mariadb-client
 
 #== apt-get install -y php7.1-bcmath

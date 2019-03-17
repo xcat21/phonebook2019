@@ -26,9 +26,6 @@ class RecordService extends AbstractService
     /** @constant ERROR_UNABLE_DELETE_RECORD Unable to delete record */
     public const ERROR_UNABLE_DELETE_RECORD = 1105;
 
-    /** @constant CACHE_KEY_EXT Key to store External API data in cache */
-    public const CACHE_KEY_EXT = 'external_api';
-
     /**
      * Returns record details by ID.
      *
@@ -173,13 +170,16 @@ class RecordService extends AbstractService
 
             // Fill model fields from $data parameter
 
+            isset($data['firstName']) ? $record->setFirstName($data['firstName']) : true;
+            isset($data['lastName']) ? $record->setLastName($data['lastName']) : true;
+            isset($data['phoneNumber']) ? $record->setPhone($data['phoneNumber']) : true;
+            isset($data['countryCode']) ? $record->setCountryCode($data['countryCode']) : true;
+            isset($data['timeZone']) ? $record->setTimeZone($data['timeZone']) : true;
+
+            // Create model
+
             /** @var bool $result Result of model creation in DB */
             $result = $record
-              ->setFirstName($data['firstName'])
-              ->setLastName($data['lastName'])
-              ->setPhone($data['phoneNumber'])
-              ->setCountryCode($data['countryCode'])
-              ->setTimeZone($data['timeZone'])
               ->setInsertedOn()
               ->setUpdatedOn()
               ->create();
@@ -231,21 +231,22 @@ class RecordService extends AbstractService
 
             // Map fields from $data with model
 
-            $data['firstName'] = (null === $data['firstName']) ? $record->getFirstName() : $data['firstName'];
-            $data['lastName'] = (null === $data['lastName']) ? $record->getLastName() : $data['lastName'];
-            $data['phoneNumber'] = (null === $data['phoneNumber']) ? $record->getPhone() : $data['phoneNumber'];
-            $data['countryCode'] = (null === $data['countryCode']) ? $record->getCountryCode() : $data['countryCode'];
-            $data['timeZone'] = (null === $data['timeZone']) ? $record->getTimeZone() : $data['timeZone'];
+            $data['firstName'] = (empty($data['firstName'])) ? $record->getFirstName() : $data['firstName'];
+            $data['lastName'] = (empty($data['lastName'])) ? $record->getLastName() : $data['lastName'];
+            $data['phoneNumber'] = (empty($data['phoneNumber'])) ? $record->getPhone() : $data['phoneNumber'];
+            $data['countryCode'] = (empty($data['countryCode'])) ? $record->getCountryCode() : $data['countryCode'];
+            $data['timeZone'] = (empty($data['timeZone'])) ? $record->getTimeZone() : $data['timeZone'];
+
+            isset($data['firstName']) ? $record->setFirstName($data['firstName']) : true;
+            isset($data['lastName']) ? $record->setLastName($data['lastName']) : true;
+            isset($data['phoneNumber']) ? $record->setPhone($data['phoneNumber']) : true;
+            isset($data['countryCode']) ? $record->setCountryCode($data['countryCode']) : true;
+            isset($data['timeZone']) ? $record->setTimeZone($data['timeZone']) : true;
 
             // Try ti update record
 
             /** @var bool $result Result of model update in DB */
             $result = $record
-                ->setFirstName($data['firstName'])
-                ->setLastName($data['lastName'])
-                ->setPhone($data['phoneNumber'])
-                ->setCountryCode($data['countryCode'])
-                ->setTimeZone($data['timeZone'])
                 ->setUpdatedOn()
                 ->update();
 

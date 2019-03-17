@@ -13,6 +13,7 @@ namespace App\Controllers;
  * @property \Phalcon\Config               $config
  * @property \App\Services\RecordService   $recordService
  * @property \App\Models\Record            $record
+ * @property \Phalcon\Cache\Backend\Redis  $cache
  */
 abstract class AbstractController extends \Phalcon\DI\Injectable
 {
