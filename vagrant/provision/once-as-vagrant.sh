@@ -17,6 +17,7 @@ function info {
 info "Provision-script user: `whoami`"
 
 info "Configure composer"
+cd /app
 composer config --global github-oauth.github.com ${github_token}
 echo "Done!"
 
