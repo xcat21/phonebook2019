@@ -116,7 +116,7 @@ Validation:
 
 Response:
 
-"Location →http://api.phonebook.loc:8000/v1/phonebook/:id" in Response header where :id is a new record ID.
+"Location: http ://api.phonebook.loc:8000/v1/phonebook/:id" in Response header where :id is a new record ID.
 
 Possible results code:
 
