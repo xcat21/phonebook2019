@@ -41,7 +41,7 @@ Tested on:
 
 * Check virtual box and vagrant with plugins are available.
 * Clone repository from https://github.com/xcat21/phonebook2019 to any folder on your host.
-* Set up your correct GitHub token in **/vagrant/config/vagrant-local** or prepare your token to be pasted to console during provision script implementation.
+* Set up your correct GitHub token in **/vagrant/config/vagrant-local** (create config from *.example* files) or prepare your token to be pasted to console during provision script implementation.
 * Run **_vagrant up_** command from the root of the folder.
 * Relax until Vagrant arranges all the stuff with box download, libs install and project configure.
 * On successful implementation of the vagrant scripts switch to **/app** folder (just **_app_** or **_cd /app_** command in console) and check it contains your host folder mirror with **_ls_** command.
