@@ -103,8 +103,12 @@ echo "Done!"
 
 info "Configure NGINX"
 sed -i 's/user www-data/user vagrant/g' /etc/nginx/nginx.conf
-touch /app/vagrant/nginx/logs/api-access.log
-touch /app/vagrant/nginx/logs/api-error.log
+cd /app/vagrant/nginx/
+mkdir logs
+chown www-data:www-data logs
+cd logs
+touch api-access.log
+touch api-error.log
 echo "Done!"
 
 info "Enabling site configuration"
