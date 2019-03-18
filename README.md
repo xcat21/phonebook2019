@@ -49,7 +49,7 @@ Response:
         "timeZone": "Europe/Bucharest",
         "insertedOn": "2019-03-15 12:43:00",
         "updatedOn": "2019-03-15 18:40:00"
-}, {...}, {...}]
+}, {}, {}]
 ```
 
 Possible results codes:
@@ -77,7 +77,7 @@ Response:
         "timeZone": "Europe/Bucharest",
         "insertedOn": "2019-03-15 12:43:00",
         "updatedOn": "2019-03-15 18:40:00"
-}, {...}, {...}]
+}, {}, {}]
 ```
 Possible results codes:
 
@@ -99,12 +99,12 @@ Request body:
 ```json
 {
 "firstName": "Padme", 
-"lastName": “Amidala”, 
-"phoneNumber": “+20 123 456777888”,
-"countryCode": “GU”,
-“timeZone” : “Moscow/Europe”,
+"lastName": "Amidala", 
+"phoneNumber": "+20 123 456777888",
+"countryCode": "GU",
+"timeZone" : "Moscow/Europe",
 }
-```json
+```
 
 Validation:
 
@@ -116,7 +116,7 @@ Validation:
 
 Response:
 
-“Location →http://api.phonebook.loc:8000/v1/phonebook/:id” in Response header where :id is a new record ID.
+"Location →http://api.phonebook.loc:8000/v1/phonebook/:id" in Response header where :id is a new record ID.
 
 Possible results code:
 
@@ -136,7 +136,7 @@ Request:
 ```json
 {
 "firstName": "Padme", 
-"lastName": “Amidala”, 
+"lastName": "Amidala", 
 }
 ```
 
