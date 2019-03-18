@@ -111,6 +111,11 @@ touch api-access.log
 touch api-error.log
 echo "Done!"
 
+info "Configure app logs"
+cd /app/app/
+mkdir logs
+chown www-data:www-data logs
+
 info "Enabling site configuration"
 ln -s /app/vagrant/nginx/app.conf /etc/nginx/sites-enabled/app.conf
 ln -s /app/vagrant/nginx/app-test.conf /etc/nginx/sites-enabled/app-test.conf
