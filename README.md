@@ -1,6 +1,6 @@
 # phonebook2019
 
-This is lightweigh REST API for Phonebook made on PHP Phalcon framework
+This is a lightweigh REST API for Phonebook made on PHP Phalcon framework
 
 ## Project features
 
