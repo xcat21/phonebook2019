@@ -1,8 +1,84 @@
 # phonebook2019
 
+This is lightweigh REST API for Phonebook made on PHP Phalcon framework
+
+## Project features
+
+* Phonebook REST API small PHP project on Phalcon with some composer packages
+* Basic MySQL database with migrations control by typical phantom migration tool
+* Table MySQL indexes for name fields 
+* Service layer pattern and Micro application type with DI usage 
+* HTTP connection to 3rd party API via Guzzle with asynchronous requests
+* CRUD connected ORM
+* Exception chain handling including custom service exceptions
+* Pagination with total result, LIMIT and OFFSET parameters
+* Searching parts of the names including spaces
+* Proper OOP structure  
+* Phantom Logger support with INFO and ERROR message types
+* Location tag support in response header on create item
+* Security input values sanitization
+* Container validation approach – all validation errors come with response, not only the first one
+* PSR auto checker with custom rules config file
+* Full API suite TEST coverage (DB results included)
+* Cache of external API requests via REDIS
+* Vagrant ready-to-use box with all the provisioning scripts inside
+
 ## API description (version 01)
 
+Also available in PDF format in /docs folder
+
 All the requests and responses use JSON format. API version is included into URL (v1) as an example in this exercise. In reality, combined method is the best practice: Major version of API in URL and Minor version in HTTP header. Without version control, it is complicated to upgrade API version, as it is impossible to force clients to upgrade their API version in one moment. According to app structure, it is easy to add other CRUD entity to API instead of “phonebook”, for example “user” or “blog” etc.
+
+## Requirements
+
+Tested on: 
+#### VirtualBox 5.2.22
+#### Vagrant 2.2.1 
+#### Vagrant plugins: vagrant-hostmanager 1.8.9 and vagrant-vbguest 0.16.0
+#### GitHub token
+
+## How to use
+
+* Check virtual box and vagrant with plugins are available.
+* Clone repository from https://github.com/xcat21/phonebook2019 to any folder on your host.
+* Set up your correct GitHub token in /vagrant/config/vagrant-local or prepare your token to be pasted to console during provision script implementation.
+* Run vagrant up command from the root of the folder.
+* Relax until Vagrant arranges all the stuff with box download, libs install and project configure.
+* On successful implementation of the vagrant scripts switch to /app folder (just app or cd /app command in console) and check it contains your host folder mirror with ls command.
+* Run phalcon migration run from the /app root to set up database structure.
+* Enjoy :)
+* PSR code checker is available as pcf alias. Run pcf --diff --dry-run -v fix to see any PSR problems. To avoid getting data from cache clean the file .psr/psr_cs.cache. Remove --dry-run to make real changes in the files.
+* Tests are available under codecept alias. Run codecept api run to perform all the API tests. Use --report options to generate separate tests reports in tests/_output folder.
+* Check nginx logs in /vagrant/nginx/logs in case of any app problem on WEB server level.
+
+Use container as a usuall dev web-server on Vagrant env.
+
+
+
+## Project structure
+
+- .phalcon/ - special Phalcon folder, contains migration history for example
+- .psr/ - special PHP CS fixer folder, contains file cache of fix results
+- .vagrant/ - special vagrant folder to keep VN settings
+- app/ - sources of application – main structure
+- public/ - public end-point for application as index.php
+- tests/ - tests folder
+- vagrant/ - vagrant settings and logs folder
+- vendor/ - external bundles folder used by Composer 
+
+Root contains following files along with composer.json, .gitignore etc.:
+- .php_cs – file of PSR rules pattern to fix code. I used Symphony profile with some extra options. See file.
+- codeception.yml -   main codeception configuration file.
+
+App structure is:
+- config/ - contains files with configuration and DI, loaders, routes etc. (config, DI, loader, routes)
+- controllers/ - contains controllers based of Phalcon Micro pattern which I used and Exception controllers
+- logs/ - folder for logging
+- migrations/ - folder for Phalcon migrations
+- models/ - contains models of the app
+- services/- contains Services on special service layer of application
+
+App tests are placed in /tests/api suite.
 
 ### Methods description
 
