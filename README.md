@@ -59,7 +59,7 @@ Use container as a usuall dev web-server on Vagrant env.
 
 - .phalcon/ - special Phalcon folder, contains migration history for example
 - .psr/ - special PHP CS fixer folder, contains file cache of fix results
-- .vagrant/ - special vagrant folder to keep VN settings
+- .vagrant/ - special vagrant folder to keep VM settings
 - app/ - sources of application – main structure
 - public/ - public end-point for application as index.php
 - tests/ - tests folder
