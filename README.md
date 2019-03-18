@@ -46,7 +46,7 @@ Tested on:
 * Relax until Vagrant arranges all the stuff with box download, libs install and project configure.
 * On successful implementation of the vagrant scripts switch to **/app** folder (just **_app_** or **_cd /app_** command in console) and check it contains your host folder mirror with **_ls_** command.
 * Run **_phalcon migration run_** from the **/app** root to set up database structure.
-* **Enjoy :)**
+* Run **_composer update_** and provide valid GitHub token in case of problems. **Enjoy :)**
 * PSR code checker is available as **_pcf_** alias. Run **_pcf --diff --dry-run -v fix_** to see any PSR problems. To avoid getting data from cache clean the file **.psr/psr_cs.cache**. Remove **_--dry-run_** to make real changes in the files.
 * Tests are available under **_codecept_** alias. Run **_codecept api run_** to perform all the API tests. Use **_--report_** options to generate separate tests reports in **tests/_output** folder.
 * Check nginx logs in **/vagrant/nginx/logs** in case of any app problem on WEB server level.
