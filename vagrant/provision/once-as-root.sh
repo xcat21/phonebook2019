@@ -116,6 +116,12 @@ cd /app/app/
 mkdir logs
 chown www-data:www-data logs
 
+info "Configure PSR cache"
+cd /app
+mkdir .psr
+touch .php_cs.cache
+echo "Done!"
+
 info "Enabling site configuration"
 ln -s /app/vagrant/nginx/app.conf /etc/nginx/sites-enabled/app.conf
 ln -s /app/vagrant/nginx/app-test.conf /etc/nginx/sites-enabled/app-test.conf
