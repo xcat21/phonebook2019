@@ -55,17 +55,38 @@ class RecordController extends AbstractController
      */
     public function getItemListAction()
     {
+        // Init errors array for validation problems list
+        $errors = [];
+
         // Getting GET params for pagination
 
         /** @var int $limit Number of records to select */
-        $limit = $this->request->getQuery('limit', 'int', 100);
+        $limit = $this->request->getQuery('limit', 'string', '100');
 
         /** @var int $offset Start point of selection of the records */
-        $offset = $this->request->getQuery('offset', 'int', 0);
+        $offset = $this->request->getQuery('offset', 'string', '0');
+
+        // Validate LIMIT parameter as positive integer
+        if (!empty($limit) && (!ctype_digit($limit) || ($limit < 1))) {
+            $errors['limit'] = 'Limit must be a positive integer';
+        }
+
+        // Validate OFFSET parameter as positive integer
+        if (!empty($offset) && (!ctype_digit($offset) || ($offset < 0))) {
+            $errors['offset'] = 'Offset must be a positive integer';
+        }
 
         // Align human-understandable offset (offset =0 & offset =1 returns same)
         // Offset = 12 means we will get 12th element from collection first, not 13th
         $offset = $offset > 0 ? $offset - 1 : 0;
+
+        // Check for any validation errors stacked in errors array
+        if ($errors) {
+            $this->logger->error('['.__METHOD__.'] Validation error acquired:'.print_r($errors, true));
+            $exception = new Http400Exception(_('Input parameters validation error'), self::ERROR_INVALID_REQUEST);
+            throw $exception->addErrorDetails($errors);
+        }
+
 
         try {
             // Get an items from service

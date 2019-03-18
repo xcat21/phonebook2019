@@ -136,11 +136,35 @@ class GetItemsCest
 
     public function getRecordsListAllSafeLimitOffset(ApiTester $I)
     {
-        $I->wantTo('Get (200) and all records with incorrect limit/offset');
+        $I->wantTo('Get (400) and all records with incorrect limit/offset');
         //  $I->amHttpAuthenticated('service_user', '123456');
         //  $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendGET('v1/phonebook?limit=kjdhfjk&offset=kejrh');
-        $I->seeResponseCodeIs(204);
-        $I->seeResponseEquals(null);
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseContains('{"error":2,"error_description":"Input parameters validation error","d'.
+                                    'etails":{"limit":"Limit must be a positive integer","offset":"Offset mu'.
+                                    'st be a positive integer"}}');
+    }
+
+    public function getRecordsListAllNegativeLimit(ApiTester $I)
+    {
+        $I->wantTo('Get (400) and all records with negative limit');
+        //  $I->amHttpAuthenticated('service_user', '123456');
+        //  $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendGET('v1/phonebook?limit=-2');
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseContains('{"error":2,"error_description":"Input parameters validation error","de'.
+                                    'tails":{"limit":"Limit must be a positive integer"}}');
+    }
+
+    public function getRecordsListAllNegativeOffset(ApiTester $I)
+    {
+        $I->wantTo('Get (400) and all records with negative limit');
+        //  $I->amHttpAuthenticated('service_user', '123456');
+        //  $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendGET('v1/phonebook?limit=2&offset=-3');
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseContains('{"error":2,"error_description":"Input parameters validation erro'.
+                                    'r","details":{"offset":"Offset must be a positive integer"}}');
     }
 }
