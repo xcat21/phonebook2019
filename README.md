@@ -41,15 +41,15 @@ Tested on:
 
 * Check virtual box and vagrant with plugins are available.
 * Clone repository from https://github.com/xcat21/phonebook2019 to any folder on your host.
-* Set up your correct GitHub token in /vagrant/config/vagrant-local or prepare your token to be pasted to console during provision script implementation.
-* Run vagrant up command from the root of the folder.
+* Set up your correct GitHub token in **/vagrant/config/vagrant-local** or prepare your token to be pasted to console during provision script implementation.
+* Run **_vagrant up_** command from the root of the folder.
 * Relax until Vagrant arranges all the stuff with box download, libs install and project configure.
-* On successful implementation of the vagrant scripts switch to /app folder (just app or cd /app command in console) and check it contains your host folder mirror with ls command.
-* Run phalcon migration run from the /app root to set up database structure.
-* Enjoy :)
-* PSR code checker is available as pcf alias. Run pcf --diff --dry-run -v fix to see any PSR problems. To avoid getting data from cache clean the file .psr/psr_cs.cache. Remove --dry-run to make real changes in the files.
-* Tests are available under codecept alias. Run codecept api run to perform all the API tests. Use --report options to generate separate tests reports in tests/_output folder.
-* Check nginx logs in /vagrant/nginx/logs in case of any app problem on WEB server level.
+* On successful implementation of the vagrant scripts switch to **/app** folder (just **_app_** or **_cd /app_** command in console) and check it contains your host folder mirror with **_ls_** command.
+* Run **_phalcon migration run_** from the **/app** root to set up database structure.
+* **Enjoy :)**
+* PSR code checker is available as **_pcf_** alias. Run **_pcf --diff --dry-run -v fix_** to see any PSR problems. To avoid getting data from cache clean the file **.psr/psr_cs.cache**. Remove **_--dry-run_** to make real changes in the files.
+* Tests are available under **_codecept_** alias. Run **_codecept api run_** to perform all the API tests. Use **_--report_** options to generate separate tests reports in **tests/_output** folder.
+* Check nginx logs in **/vagrant/nginx/logs** in case of any app problem on WEB server level.
 
 Use container as a usuall dev web-server on Vagrant env.
 
