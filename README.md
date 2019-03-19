@@ -51,6 +51,8 @@ Tested on:
 * Tests are available under **_codecept_** alias. Run **_codecept api run_** to perform all the API tests. Use **_--report_** options to generate separate tests reports in **tests/_output** folder.
 * Check nginx logs in **/vagrant/nginx/logs** in case of any app problem on WEB server level.
 
+By default API is available at http://api.phonebook.loc:8000, like http://api.phonebook.loc:8000/v1/phonebook/ to get all the items, but it could be changed in **/app/vagrant/nginx/app.conf**.
+
 Use container as a usuall dev web-server on Vagrant env.
 
 
