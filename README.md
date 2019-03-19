@@ -44,7 +44,7 @@ Tested on:
 * Set up your correct GitHub token in **/vagrant/config/vagrant-local** (create config from *.example* files) or prepare your token to be pasted to console during provision script implementation.
 * Run **_vagrant up_** command from the root of the folder.
 * Relax until Vagrant arranges all the stuff with box download, libs install and project configure.
-* On successful implementation of the vagrant scripts switch to **/app** folder (just **_app_** or **_cd /app_** command in console) and check it contains your host folder mirror with **_ls_** command.
+* On successful implementation of the vagrant scripts run **_vagrant ssh_** to connect to your VM, switch to **/app** folder (just **_app_** or **_cd /app_** command in console) and check it contains your host folder mirror with **_ls_** command.
 * Run **_phalcon migration run_** from the **/app** root to set up database structure.
 * Run **_composer update_** and provide valid GitHub token in case of problems. **Enjoy :)**
 * PSR code checker is available as **_pcf_** alias. Run **_pcf --diff --dry-run -v fix_** to see any PSR problems. To avoid getting data from cache clean the file **.psr/psr_cs.cache**. Remove **_--dry-run_** to make real changes in the files.
